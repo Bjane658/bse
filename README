@@ -1,0 +1,12 @@
+Compilieren
+-----------
+In das Unterverzeichnis des HHUos-Quelltextes wechseln.
+Zum Beispiel > cd vorgabe01
+Dann einfach > make 
+
+Starten mit Qemu
+----------------
+Im gleichen Verzeichnis wo 'make' aufgerufen wurde
+> make qemu
+
+
