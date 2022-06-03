@@ -18,32 +18,28 @@ CoroutineDemo coroutineDemo;
 
 
 int main() {
-    
-    // Speicherverwaltung initialisieren
-    allocator.init();
-
     // Bildschirm loeschen.
-    kout.clear();
-    kout.setpos(0,0);
-    kout << "Start Coroutines" << endl;
-		kout.setpos(0,3);
-
-		// CoroutineDemo
-		coroutineDemo.main();
+    kout.clear ();
     
-    // Tastatur-Unterbrechungsroutine 'einstoepseln'
-    /* hier muss Code eingefuegt werden */
-    //kb.plugin();
-
-    //Keyboard init in main statt in Keyboard.cc
-    //intdis.assign(33, kb);
-    //pic.status(0);
+    // Startmeldung ausgeben
+    kout << "HHUos 0.4" << endl << "=========" << endl << endl;
+    
+    kout << "Unterstuetzte Funktionen:" << endl;
+    kout << "   - Bildschirmausgaben" << endl;
+    kout << "   - Sound ueber den PC-Lautsprecher" << endl;
+    kout << "   - Tastatureingaben per Interrupt" << endl;
+    kout << "   - Koroutinen" << endl;
+    kout << endl;
+    kout.flush ();
+    
+    // Tastatur-Unterbrechungsroutine einstoepseln
+    kb.plugin ();
     
     // Interrupts erlauben (Tastatur)
-    //cpu.enable_int();
-  
-    //key_irq_demo();
-  
-    while (1) ; // wir kehren nicht zum Bootlader zurueck
+    cpu.enable_int ();
+    
+    // Anwendungscode aufrufen
+    coroutineDemo.main();
+    
     return 0;
  }

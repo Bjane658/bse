@@ -32,8 +32,6 @@ extern "C" void int_disp (unsigned int slot);
  *****************************************************************************/
 //void int_disp (unsigned int vector) {
 void int_disp (unsigned int slot) {
-
-    /* hier muss Code eingefuegt werden */
     
     kout << "Ein Interrupt ist aufgetreten; slot: " << dec << slot << endl;
     int result = intdis.report(slot);
