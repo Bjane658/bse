@@ -26,23 +26,16 @@ int main() {
     kout.clear();
     kout.setpos(0,0);
     kout << "Start Coroutines" << endl;
-		kout.setpos(0,3);
 
 		// CoroutineDemo
 		coroutineDemo.main();
     
     // Tastatur-Unterbrechungsroutine 'einstoepseln'
-    /* hier muss Code eingefuegt werden */
-    //kb.plugin();
+    kb.plugin();
 
-    //Keyboard init in main statt in Keyboard.cc
-    //intdis.assign(33, kb);
-    //pic.status(0);
-    
     // Interrupts erlauben (Tastatur)
-    //cpu.enable_int();
+    cpu.enable_int();
   
-    //key_irq_demo();
   
     while (1) ; // wir kehren nicht zum Bootlader zurueck
     return 0;

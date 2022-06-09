@@ -29,20 +29,16 @@
 
 Coroutine_start:
 
-; *
-; * Hier muss Code eingefuegt werden
-; *
-	push ebp
-	mov ebp,esp
-	mov ebx,[ebp+8]
 
-	
-	mov eax,[ebx+esp_offset]
-	mov [ebx+ebx_offset],eax
-	mov [ebp+4],eax
+	mov eax, [esp+4]	;regs
 
+;	Den State von regs uebertragen
+	mov esp, [eax+esp_offset]
+	mov ebx, [eax+ebx_offset]
+	mov esi, [eax+esi_offset]
+	mov edi, [eax+edi_offset]
+	mov ebp, [eax+ebp_offset]
 
-	pop ebp
 	ret
 
 
@@ -57,7 +53,22 @@ Coroutine_start:
 ;
 Coroutine_switch:
 
-; *
-; * Hier muss Code eingefuegt werden
-; *
+	mov eax, [esp+4]	;regs_now
+	mov ecx, [esp+8]	;reg_then
 
+;	Sichern des State in regs_now
+	mov [eax + ebx_offset], ebx
+	mov [eax + esi_offset], esi
+	mov [eax + edi_offset], edi
+	mov [eax + ebp_offset], ebp
+	mov [eax + esp_offset], esp
+
+
+;	Den State von reg_then uebertragen
+	mov ebx, [ecx + ebx_offset]
+	mov esi, [ecx + esi_offset]
+	mov edi, [ecx + edi_offset]
+	mov ebp, [ecx + ebp_offset]
+	mov esp, [ecx + esp_offset]
+
+	ret

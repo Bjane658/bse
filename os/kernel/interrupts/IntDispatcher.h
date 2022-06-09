@@ -27,7 +27,7 @@ private:
 public:
     // Vektor-Nummern
     enum {
-        timer = 32,
+        time = 32,
         keyboard = 33
     };
     

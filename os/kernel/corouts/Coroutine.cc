@@ -1,5 +1,4 @@
-/*****************************************************************************
- *                                                                           *
+/***************************************************************************** *                                                                           *
  *                              C O R O U T I N E                            *
  *                                                                           *
  *---------------------------------------------------------------------------*
@@ -44,9 +43,7 @@ extern "C"
 void Coroutine_init (struct CoroutineState* regs, unsigned int* stack,
                      void (*kickoff)(Coroutine*), void* object) {
     
-		kout << "regsinit: " << hex << regs << endl;
     register unsigned int **sp = (unsigned int**)stack;
-		kout << "stack: " << hex << sp << " val: " << hex << *sp << endl;
     
     // Stack initialisieren. Es soll so aussehen, als waere soeben die
     // eine Funktion aufgerufen worden, die als Parameter den Zeiger
@@ -57,9 +54,7 @@ void Coroutine_init (struct CoroutineState* regs, unsigned int* stack,
     // wird, sie darf also nicht terminieren, sonst kracht's.
     
     *(--sp) = (unsigned int*)object;    // Parameter
-		kout << "object: " << hex << sp << " val: " << hex << *sp << endl;
     *(--sp) = (unsigned int*)0x131155; // Ruecksprungadresse
-		kout << "rueckspraddr: " << hex << sp << " val: " << hex << *sp << endl;
     
     // Nun legen wir noch die Adresse der Funktion "kickoff" ganz oben auf
     // den Stack. Wenn dann bei der ersten Aktivierung dieser Koroutine der
@@ -68,7 +63,6 @@ void Coroutine_init (struct CoroutineState* regs, unsigned int* stack,
     // Genauso sollen auch alle spaeteren Threadwechsel ablaufen.
     
     *(--sp) = (unsigned int*)kickoff;   // Adresse
-		kout << "kickoff: " << hex << sp << " val: " << hex << *sp << endl;
     
     // Initialisierung der Struktur ThreadState mit den Werten, die die
     // nicht-fluechtigen Register beim ersten Starten haben sollen.
@@ -119,9 +113,7 @@ Coroutine::Coroutine (unsigned int* stack) {
  * Beschreibung:    Auf die nächste Koroutine umschalten.                    *
  *****************************************************************************/
 void Coroutine::switchToNext () {
-
- /* hier muss Code eingefügt werden */
-
+	Coroutine_switch(&regs, &((Coroutine*)next)->regs);
 }
 
 
