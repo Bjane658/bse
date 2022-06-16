@@ -20,12 +20,13 @@
  * Beschreibung:    Scheduler starten. Wird nur einmalig aus main.cc gerufen.*
  *****************************************************************************/
 void Scheduler::schedule () {
+		IdleThread* it = new IdleThread();
+		ready(it);
 
-    /* hier muss Code eingefuegt werden */
-    
-    /* Bevor diese Methode anufgerufen wird, muss zumindest der Idle-Thread 
-     * in der Queue eingefuegt worden sein. 
-     */
+		Thread* firstThread = (Thread*)readyQueue.dequeue();
+		ready(firstThread);
+		start(*firstThread);
+
 }
 
 
@@ -38,9 +39,7 @@ void Scheduler::schedule () {
  *      that        Einzutragender Thread                                    *
  *****************************************************************************/
 void Scheduler::ready (Thread * that) {
-
-    /* hier muss Code eingefuegt werden */
-
+	readyQueue.enqueue(that);
 }
 
 
@@ -53,9 +52,10 @@ void Scheduler::ready (Thread * that) {
  *                  nicht in der readyQueue.                                 *
  *****************************************************************************/
 void Scheduler::exit () {
-
-    /* hier muss Code eingefuegt werden */
-
+	Thread* nextThread = (Thread*)readyQueue.dequeue();
+	//readyQueue.dump(false);
+	//kout << "nextThread: " << hex << nextThread << endl;
+	dispatch(*nextThread);
 }
 
 
@@ -71,9 +71,7 @@ void Scheduler::exit () {
  *      that        Zu terminierender Thread                                 *
  *****************************************************************************/
 void Scheduler::kill (Thread * that) {
-
-    /* hier muss Code eingefuegt werden */
-
+	readyQueue.remove(that);
 }
 
 
@@ -89,7 +87,11 @@ void Scheduler::kill (Thread * that) {
  *                           readyQueue leer.                                *
  *****************************************************************************/
 void Scheduler::yield () {
-
-    /* hier muss Code eingefuegt werden */
-
+	//kout << "Before dequeue" << endl;
+	//readyQueue.dump(false);
+	Thread* nextThread = (Thread*)readyQueue.dequeue();
+	ready(get_active());
+	//kout << "After dequeue and ready" << endl;
+	//readyQueue.dump(false);
+	dispatch(*nextThread);
 }

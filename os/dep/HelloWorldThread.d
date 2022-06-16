@@ -4,5 +4,6 @@ build/HelloWorldThread.o: user/HelloWorldThread.cc kernel/Globals.h \
  devices/PCSPK.h kernel/IOport.h devices/CGA_Stream.h devices/CGA.h \
  lib/OutStream.h lib/StringBuffer.h devices/Keyboard.h devices/Key.h \
  kernel/interrupts/ISR.h kernel/interrupts/IntDispatcher.h \
- user/HelloWorldThread.h kernel/threads/Thread.h \
- kernel/threads/ThreadState.h lib/Chain.h
+ kernel/threads/Scheduler.h kernel/threads/Dispatch.h \
+ kernel/threads/Thread.h kernel/threads/ThreadState.h lib/Chain.h \
+ lib/Queue.h user/HelloWorldThread.h

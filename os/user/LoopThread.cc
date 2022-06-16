@@ -20,9 +20,9 @@ void LoopThread::run () {
 	
 	while(1){
 		kout.setpos(0,5 + id);
-		kout << "Tread[" << id << "]: " << dec << counter << endl;
+		kout << "Thread[" << id << "]: " << dec << counter << endl;
 		counter += 1;
-		//scheduler.yield();
+		scheduler.yield();
 	}
    
 }

@@ -22,9 +22,9 @@ private:
     Scheduler (const Scheduler &copy); // Verhindere Kopieren
      
 private:
-    Queue readyQueue;   // auf die CPU wartende Threads
    
 public:
+    Queue readyQueue;   // auf die CPU wartende Threads
     Scheduler () {}
 
     // Scheduler starten

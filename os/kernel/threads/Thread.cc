@@ -22,18 +22,18 @@
 #include "kernel/Globals.h"
 #include "kernel/threads/Thread.h"
 
-/*
+int nextThreadId = 0;
+
 // Funktionen, die auf der Assembler-Ebene implementiert werden, muessen als
 // extern "C" deklariert werden, da sie nicht dem Name-Mangeling von C++
 // entsprechen.
 extern "C"
 {
-    void Coroutine_start  (struct CoroutineState* regs);
-    void Coroutine_switch (struct CoroutineState* regs_now,
-                           struct CoroutineState* reg_then);
+    void Thread_start  (struct ThreadState* regs);
+    void Thread_switch (struct ThreadState* regs_now,
+                           struct ThreadState* reg_then);
     
 }
-*/
 
 
 /*****************************************************************************
@@ -42,9 +42,8 @@ extern "C"
  * Beschreibung:    Bereitet den Kontext der Koroutine fuer den ersten       *
  *                  Aufruf vor.                                              *
  *****************************************************************************/
-/*
-void Coroutine_init (struct CoroutineState* regs, unsigned int* stack,
-                     void (*kickoff)(Coroutine*), void* object) {
+void Thread_init (struct ThreadState* regs, unsigned int* stack,
+                     void (*kickoff)(Thread*), void* object) {
     
     register unsigned int **sp = (unsigned int**)stack;
     
@@ -77,7 +76,6 @@ void Coroutine_init (struct CoroutineState* regs, unsigned int* stack,
     regs->ebp = 0;
     regs->esp = sp;
 }
-*/
 
 
 /*****************************************************************************
@@ -90,14 +88,12 @@ void Coroutine_init (struct CoroutineState* regs, unsigned int* stack,
  *                  wuerde ein sinnloser Wert als Ruecksprungadresse         * 
  *                  interpretiert werden und der Rechner abstuerzen.         *
  *****************************************************************************/
-/*
-void kickoff (Coroutine* object) {
+void kickoff (Thread* object) {
     object->run();
     
     // object->run() kehrt hoffentlich nie hierher zurueck
     for (;;) {}
 }
-*/
 
 
 /*****************************************************************************
@@ -108,11 +104,14 @@ void kickoff (Coroutine* object) {
  * Parameter:                                                                *
  *      stack       Stack für die neue Koroutine                             *
  *****************************************************************************/
-/*
-Coroutine::Coroutine (unsigned int* stack) {
-    Coroutine_init (&regs, stack, kickoff, this);
+Thread::Thread () {
+		tid = nextThreadId;
+		nextThreadId = nextThreadId + 1;
+
+		unsigned int* stack = new unsigned int[1024];
+		
+    Thread_init(&regs, &stack[1024], kickoff, this);
  }
- */
 
 
 /*****************************************************************************
@@ -121,7 +120,7 @@ Coroutine::Coroutine (unsigned int* stack) {
  * Beschreibung:    Auf die nächste Koroutine umschalten.                    *
  *****************************************************************************/
 void Thread::switchTo (Thread& next) {
-	//Coroutine_switch(&regs, &((Coroutine*)next)->regs);
+	Thread_switch(&regs, &(next).regs);
 }
 
 
@@ -131,17 +130,6 @@ void Thread::switchTo (Thread& next) {
  * Beschreibung:    Aktivierung der Koroutine.                               *
 *****************************************************************************/
 void Thread::start () {
-		//Coroutine_start(&regs);
+		Thread_start(&regs);
 }
 
-
-/*****************************************************************************
- * Methode:         Coroutine::setNext                                       *
- *---------------------------------------------------------------------------*
- * Beschreibung:    Verweis auf nächste Koroutine setzen.                    *
- *****************************************************************************/
-/*
-void Coroutine::setNext (Chain* next) {
-		this->next = next;
-}
-*/

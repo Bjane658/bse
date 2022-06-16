@@ -12,6 +12,9 @@
 
 #include "kernel/Globals.h"
 #include "user/CoroutineDemo.h"
+#include "user/CoopThreadDemo.h"
+#include "user/HelloWorldThread.h"
+#include "user/LoopThread.h"
 #include "lib/Queue.h"
 #include "lib/Chain.h"
 
@@ -28,51 +31,28 @@ int main() {
     kout.clear();
 		kout.setpos(0,0);
 
-		Chain* ch1 = new Chain();
-		Chain* ch2 = new Chain();
-		Chain* ch3 = new Chain();
-
-		Queue* q1 = new Queue();
-		kout << "q1 Addresse: " << hex << q1 << endl;
-		q1->dump(true);
-		kout << "Enqueueing: " << hex << ch1 << endl;
-		q1->enqueue(ch1);
-		q1->dump(false);
-		kout << "Enqueueing: " << hex << ch2 << endl;
-		q1->enqueue(ch2);
-		q1->dump(false);
-		kout << "Enqueueing: " << hex << ch3 << endl;
-		q1->enqueue(ch3);
-		q1->dump(false);
-
-		kout << "Removing: " << hex << ch3 << endl;
-		q1->remove(ch3);
-		q1->dump(false);
-
-		kout << "Removing: " << hex << ch2 << endl;
-		q1->remove(ch2);
-		q1->dump(false);
-
-		kout << "Removing: " << hex << ch1 << endl;
-		q1->remove(ch1);
-		q1->dump(true);
-
-		kout << "Enqueueing: " << hex << ch2 << endl;
-		q1->enqueue(ch2);
-		q1->dump(false);
-		kout << "Enqueueing: " << hex << ch3 << endl;
-		q1->enqueue(ch3);
-		q1->dump(false);
-
-
-
-    while (1) ; // wir kehren nicht zum Bootlader zurueck
-
-
 		// CoroutineDemo
     //kout.setpos(0,0);
     //kout << "Start Coroutines" << endl;
 		//coroutineDemo.main();
+		//
+		
+
+		//HelloWorldThread* hw = new HelloWorldThread();
+		CoopThreadDemo* coop = new CoopThreadDemo();
+		//LoopThread* lt = new LoopThread(0);
+		//LoopThread* lt1 = new LoopThread(1);
+		//LoopThread* lt2 = new LoopThread(2);
+
+		scheduler.Scheduler::ready(coop);
+		/*
+		scheduler.Scheduler::ready(lt);
+		scheduler.Scheduler::ready(lt1);
+		scheduler.Scheduler::ready(lt2);
+		*/
+		scheduler.Scheduler::schedule();
+
+
     
     // Tastatur-Unterbrechungsroutine 'einstoepseln'
     //kb.plugin();

@@ -20,7 +20,26 @@
  *                  ausgeben und terminiert sich selbst.                     *
  *****************************************************************************/
 void CoopThreadDemo::run () {
-  
-    /* Hier muss Code eingefuegt werden */
-    
+	unsigned int counter = 0;
+	LoopThread* l0 = new LoopThread(0);
+	LoopThread* l1 = new LoopThread(1);
+	LoopThread* l2 = new LoopThread(2);
+
+	//scheduler.Scheduler::readyQueue.dump(false);
+
+	scheduler.Scheduler::ready(l0);
+	scheduler.Scheduler::ready(l1);
+	scheduler.Scheduler::ready(l2);
+	//scheduler.Scheduler::readyQueue.dump(false);
+
+	while(1){
+		kout.setpos(0,0);
+		kout << "DemoRun: " << dec << counter << endl;
+		if(counter >= 1000){
+			scheduler.kill(l1);
+			scheduler.exit();
+		}
+		counter = counter + 1;
+		scheduler.yield();
+	}
 }

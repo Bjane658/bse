@@ -25,8 +25,9 @@ public:
     IdleThread () : Thread () {  }
     
     void run () {
+						kout << "IdleThread[" << hex << tid << "]" << endl;
         while (1) {
-            //scheduler.yield ();
+            scheduler.yield();
         }
     }
     
