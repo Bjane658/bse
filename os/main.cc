@@ -13,6 +13,7 @@
 #include "kernel/Globals.h"
 #include "user/CoroutineDemo.h"
 #include "user/CoopThreadDemo.h"
+#include "user/VBEdemo.h"
 #include "user/HelloWorldThread.h"
 #include "user/LoopThread.h"
 #include "lib/Queue.h"
@@ -30,6 +31,7 @@ int main() {
     // Bildschirm loeschen.
     kout.clear();
 		kout.setpos(0,0);
+		kout << "Vbe Demo" << endl;
 
 		// CoroutineDemo
     //kout.setpos(0,0);
@@ -38,18 +40,17 @@ int main() {
 		//
 		
 
+		/* Thread Demo */
+		/*
 		//HelloWorldThread* hw = new HelloWorldThread();
 		CoopThreadDemo* coop = new CoopThreadDemo();
-		//LoopThread* lt = new LoopThread(0);
-		//LoopThread* lt1 = new LoopThread(1);
-		//LoopThread* lt2 = new LoopThread(2);
-
 		scheduler.Scheduler::ready(coop);
-		/*
-		scheduler.Scheduler::ready(lt);
-		scheduler.Scheduler::ready(lt1);
-		scheduler.Scheduler::ready(lt2);
 		*/
+
+		/* Graphic Demo */
+		VBEdemo* vbeDemo = new VBEdemo();
+		scheduler.Scheduler::ready(vbeDemo);
+
 		scheduler.Scheduler::schedule();
 
 
