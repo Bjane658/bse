@@ -55,6 +55,22 @@ void VBEdemo::drawColors () {
     }
 }
 
+void VBEdemo::drawRectangle (	unsigned int x,
+															unsigned int y,
+															unsigned int width,
+															unsigned int height
+														) {
+	for(int yCounter = y; yCounter < y + height; yCounter++){
+		for(int xCounter = x; xCounter < x + width; xCounter++){
+			if(yCounter == y || yCounter == (y + height - 1) ||
+						xCounter == x || xCounter == (x + width -1)){
+				vesa.drawPixel(xCounter, yCounter, 1);
+			}
+		}
+	}
+   
+}
+
 
 /*****************************************************************************
  * Methode:         VBEdemo::drawBitmap                                      *
@@ -84,6 +100,7 @@ void VBEdemo::drawFonts () {
 }
 
 
+
 /*****************************************************************************
  * Methode:         VBEdemo::run                                             *
  *---------------------------------------------------------------------------*
@@ -97,6 +114,7 @@ void VBEdemo::run () {
     vesa.setDrawingBuff(BUFFER_VISIBLE);
 
     drawColors();
+		drawRectangle(10,10,100,100);
     
     /* Hier muss Code eingefuegt werden */
 

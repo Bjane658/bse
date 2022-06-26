@@ -33,6 +33,8 @@ public:
     // Farbraum ausgeben
     void drawColors ();
 
+		void drawRectangle(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
+
     // Bitmap aus GIMP ausgeben
     void drawBitmap ();
 
