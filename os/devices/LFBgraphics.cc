@@ -61,6 +61,106 @@ inline void LFBgraphics::drawMonoBitmap( unsigned int x, unsigned int y,
     }
 }
 
+void LFBgraphics::drawSprite(	unsigned int x, unsigned int y,
+                            	unsigned int width, unsigned int height, 
+                            	unsigned int bytes_per_pixel, unsigned char* bitmap){
+	unsigned char data[width][height][bytes_per_pixel];
+
+	unsigned int widthCounter = 0;
+	unsigned int heightCounter = 0;
+	unsigned int pixelByteCounter = 0;
+	unsigned int r = 0;
+	unsigned int g = 0;
+	unsigned int b = 0;
+	unsigned int hexValue = 0x0; 
+	// r = 0xRR0000;
+	// g = 0x00GG00;
+	// b = 0x0000BB;
+
+	for(int i = 0; i < 200 * 52 * 3 + 1; i++){
+		//data[widthCounter][heightCounter][pixelByteCounter] = bitmap[i];
+
+		
+		if(pixelByteCounter == 0){
+			r = (int) bitmap[i];
+		}
+		if(pixelByteCounter == 1){
+			g = (int) bitmap[i];
+		}
+		if(pixelByteCounter == 2){
+			b = (int) bitmap[i];
+		}
+
+		pixelByteCounter += 1;
+		if(pixelByteCounter >= bytes_per_pixel){
+			hexValue = (r << 16) + (g << 8) + b;
+			drawPixel(x + widthCounter, y + heightCounter, hexValue);
+			pixelByteCounter = 0;
+			widthCounter += 1;
+			if(widthCounter >= width){
+				widthCounter = 0;
+				heightCounter += 1;
+		}
+		}
+	}
+}
+
+
+void LFBgraphics::drawRectangle (	unsigned int x,
+															unsigned int y,
+															unsigned int width,
+															unsigned int height
+														) {
+	for(int yCounter = y; yCounter < y + height; yCounter++){
+		for(int xCounter = x; xCounter < x + width; xCounter++){
+			if(yCounter == y || yCounter == (y + height - 1) ||
+						xCounter == x || xCounter == (x + width -1)){
+				drawPixel(xCounter, yCounter, 0xff0000);
+			}
+		}
+	}
+   
+}
+
+void LFBgraphics::drawCircle (	unsigned int x0,
+																unsigned int y0,
+																unsigned int radius
+														) {
+    int f = 1 - radius;
+    int ddF_x = 0;
+    int ddF_y = -2 * radius;
+    int x = 0;
+    int y = radius;
+
+    drawPixel(x0, y0 + radius, 1);
+    drawPixel(x0, y0 - radius, 1);
+    drawPixel(x0 + radius, y0, 1);
+    drawPixel(x0 - radius, y0, 1);
+
+    while(x < y)
+    {
+        if (f >= 0)
+        {
+            y -= 1;
+            ddF_y += 2;
+            f += ddF_y;
+        }
+        x += 1;
+        ddF_x += 2;
+        f += ddF_x + 1;
+
+        drawPixel(x0 + x, y0 + y, 1);
+        drawPixel(x0 - x, y0 + y, 1);
+        drawPixel(x0 + x, y0 - y, 1);
+        drawPixel(x0 - x, y0 - y, 1);
+        drawPixel(x0 + y, y0 + x, 1);
+        drawPixel(x0 - y, y0 + x, 1);
+        drawPixel(x0 + y, y0 - x, 1);
+        drawPixel(x0 - y, y0 - x, 1);
+    }
+   
+}
+
 
 /*****************************************************************************
  * Methode:         LFBgraphics::drawString                                  *

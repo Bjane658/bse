@@ -30,11 +30,11 @@ private:
     LFBgraphics (const LFBgraphics &copy);  // Verhindere Kopieren
 
     // Hilfsfunktion fuer drawString
+
+public:
     void drawMonoBitmap   ( unsigned int x, unsigned int y, 
                             unsigned int width, unsigned int height, 
                             unsigned char* bitmap, unsigned int col);
-
-public:
     unsigned int xres, yres;        // Aufloesung in Pixel
     unsigned int bpp;               // Farbtiefe (Bits per Pixel)
     unsigned int lfb;               // Adresse des Linearen Framebuffers
@@ -45,8 +45,14 @@ public:
     
     void clear            ();
     void drawPixel        ( unsigned int x, unsigned int y, unsigned int col);
+    void drawSprite        (	unsigned int x, unsigned int y,
+                            	unsigned int width, unsigned int height, 
+                            	unsigned int bytes_per_pixel, unsigned char* bitmap);
     
-    void drawString       (Font &fnt, unsigned int x, unsigned int y,  
+		void drawRectangle		(	unsigned int x, unsigned int y, unsigned int width,
+														unsigned int height);
+		void drawCircle				(	unsigned int x0, unsigned int y, unsigned int radius);
+    void drawString       (	Font &fnt, unsigned int x, unsigned int y,  
                             unsigned int col, char* str, unsigned int len);
     
     // stellt ein, ob in den sichtbaren Puffer gezeichnet wird

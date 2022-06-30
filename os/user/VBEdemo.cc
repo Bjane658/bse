@@ -55,22 +55,6 @@ void VBEdemo::drawColors () {
     }
 }
 
-void VBEdemo::drawRectangle (	unsigned int x,
-															unsigned int y,
-															unsigned int width,
-															unsigned int height
-														) {
-	for(int yCounter = y; yCounter < y + height; yCounter++){
-		for(int xCounter = x; xCounter < x + width; xCounter++){
-			if(yCounter == y || yCounter == (y + height - 1) ||
-						xCounter == x || xCounter == (x + width -1)){
-				vesa.drawPixel(xCounter, yCounter, 1);
-			}
-		}
-	}
-   
-}
-
 
 /*****************************************************************************
  * Methode:         VBEdemo::drawBitmap                                      *
@@ -82,6 +66,10 @@ void VBEdemo::drawBitmap () {
     unsigned int  sprite_width   = hhu.width;
     unsigned int  sprite_bpp     = hhu.bytes_per_pixel;
     unsigned char *sprite_pixel  = (unsigned char*)hhu.pixel_data;
+
+		//vesa.drawMonoBitmap(0, 0, sprite_width, sprite_height, sprite_pixel, 1);
+		vesa.drawSprite(0,0, sprite_width, sprite_height, sprite_bpp, sprite_pixel);
+		
 
     /* Hier muss Code eingefuegt werden */
 
@@ -114,7 +102,9 @@ void VBEdemo::run () {
     vesa.setDrawingBuff(BUFFER_VISIBLE);
 
     drawColors();
-		drawRectangle(10,10,100,100);
+		vesa.drawRectangle(0,0,200,52);
+		vesa.drawCircle(250,250,50);
+		drawBitmap();
     
     /* Hier muss Code eingefuegt werden */
 
