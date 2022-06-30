@@ -82,6 +82,9 @@ void VBEdemo::drawBitmap () {
  * Beschreibung:    Fonts ausgeben.                                          *
  *****************************************************************************/
 void VBEdemo::drawFonts () {
+		char* some = "some";
+
+		vesa.drawString(std_font_8x16, 250,250, 0xff0000, some, 5);
 
    /* Hier muss Code eingefuegt werden */
    
@@ -105,6 +108,7 @@ void VBEdemo::run () {
 		vesa.drawRectangle(0,0,200,52);
 		vesa.drawCircle(250,250,50);
 		drawBitmap();
+		drawFonts();
     
     /* Hier muss Code eingefuegt werden */
 
