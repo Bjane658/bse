@@ -23,6 +23,8 @@ void waitForReturn() {
 
 
 void heap_demo() {
+		kout.clear();
+		kout.setpos(0,0);
     kout << "Demo 1/4: 2 Objekte dynamisch allozieren" << endl;
     kout << "========================================" << endl;
 
@@ -37,10 +39,33 @@ void heap_demo() {
     kout << "Allocating Object 2" << endl;
     kout << "my2 Address: " << hex << my2 << "  myNum: " << dec << my2->myNum << "  myChar: "  << my2->myChar << endl;
     kout << endl;
+    allocator.dump_free_memory();
+		kout << "Weiter mit <ENTER>" << endl;
+
+    while(1){
+        Key key = kb.key_hit();
+        if(key.valid()){
+					if((int) key.ascii() == 10){
+						break;
+					}
+        }
+    }
+
+		kout.clear();
+		kout.setpos(0,0);
+    kout << "Demo 2/4: 2 Objekte wieder freigeben" << endl;
+    kout << "========================================" << endl;
+    allocator.dump_free_memory();
+
+		kout << "Deleting Object 1 with Address: " << hex << my1 << endl;
+		delete my1;
 
     allocator.dump_free_memory();
 
-   /* hier muss Code eingefuegt werden */
+		kout << "Deleting Object 2 with Address: " << hex << my2 << endl;
+		delete my2;
 
+    allocator.dump_free_memory();
+		kout << "Weiter mit <ENTER>" << endl;
 }
 

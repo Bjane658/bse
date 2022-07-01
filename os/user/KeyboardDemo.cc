@@ -15,7 +15,8 @@ void keyboard_demo() {
     while(1){
         Key key = kb.key_hit();
         if(key.valid()){
-         kout << key.ascii() << endl;
+         kout << dec << key.ascii();
+				 kout.flush();
         }
     }
 }

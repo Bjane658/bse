@@ -11,6 +11,8 @@
  *****************************************************************************/
 
 #include "kernel/Globals.h"
+#include "user/KeyboardDemo.h"
+#include "user/HeapDemo.h"
 #include "user/CoroutineDemo.h"
 #include "user/CoopThreadDemo.h"
 #include "user/VBEdemo.h"
@@ -31,7 +33,12 @@ int main() {
     // Bildschirm loeschen.
     kout.clear();
 		kout.setpos(0,0);
-		kout << "Vbe Demo" << endl;
+		/*	Keyboard Demo */
+		//kout << "Keyboard Demo" << endl;
+		//keyboard_demo();
+
+		/*	Heap Demo */
+		//heap_demo();
 
 		// CoroutineDemo
     //kout.setpos(0,0);
@@ -48,10 +55,10 @@ int main() {
 		*/
 
 		/* Graphic Demo */
-		VBEdemo* vbeDemo = new VBEdemo();
-		scheduler.Scheduler::ready(vbeDemo);
+		//VBEdemo* vbeDemo = new VBEdemo();
+		//scheduler.Scheduler::ready(vbeDemo);
 
-		scheduler.Scheduler::schedule();
+		//scheduler.Scheduler::schedule();
 
 
     
