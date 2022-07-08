@@ -13,10 +13,10 @@
 #include "kernel/CPU.h"
 #include "kernel/Globals.h"
 #include "kernel/interrupts/IntDispatcher.h"
+#include "kernel/interrupts/Bluescreen.h"
 
 
 extern "C" void int_disp (unsigned int slot);
-
 
 /*****************************************************************************
  * Prozedur:        int_disp                                                 *
@@ -30,14 +30,18 @@ extern "C" void int_disp (unsigned int slot);
  * Parameter:                                                                *
  *      vector:     Vektor-Nummer der Unterbrechung                          *
  *****************************************************************************/
-//void int_disp (unsigned int vector) {
-void int_disp (unsigned int slot) {
-    
-    kout << "Ein Interrupt ist aufgetreten; slot: " << dec << slot << endl;
-    int result = intdis.report(slot);
-    if(result == -1){
-        kout << "Error calling ISR" << endl;
-   }
+void int_disp (unsigned int vector) {
+
+    if (vector < 32) {
+        bs_dump(vector);
+        cpu.halt ();
+    }
+	
+	if (intdis.report (vector) < 0) {
+        kout << "Panic: unexpected interrupt " << vector;
+        kout << " - processor halted." << endl;
+        cpu.halt ();
+	}
 }
 
 
@@ -64,11 +68,12 @@ IntDispatcher::IntDispatcher () {
  * Rueckgabewert:   0 = Erfolg, -1 = Fehler                                  *
  *****************************************************************************/
 int IntDispatcher::assign (unsigned int vector, ISR& isr) {
-    if(vector > 255){
-        return -1;
-    }
-    map[vector] = &isr;
-    return 0;
+
+	if (vector < size) {
+        map[vector] = &isr;
+		return 0;
+	}
+	return -1;
 }
 
 
@@ -83,15 +88,9 @@ int IntDispatcher::assign (unsigned int vector, ISR& isr) {
  * Rueckgabewert:   0 = ISR wurde aufgerufen, -1 = unbekannte Vektor-Nummer  *
  *****************************************************************************/
 int IntDispatcher::report (unsigned int vector) {
-    if(vector > 255){
-        return -1;
-    }
-
-    ISR* isr = map[vector];
-    if(isr == 0){
-        return -1;
+   if (vector < size) {
+        map[vector]->trigger();
+        return 0;
    }
-
-    isr->trigger();
-    return 0;
+   return -1;
 }

@@ -38,7 +38,8 @@
 
 #define MEM_SIZE_DEF        	 8*1024*102 // Groesse des Speichers = 8 MB
 
-#define HEAP_START           	 0x300000 	// Startadresse des Heaps
+//#define HEAP_START           	 0x300000 	// Startadresse des Heaps
+#define HEAP_START           	 0x400000 	// Startadresse des Heaps
 #define HEAP_SIZE	        	 1024*1024 	// Default-Groesse des Heaps, falls 
 											// nicht über das BIOS ermittelbar 
 

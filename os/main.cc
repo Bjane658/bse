@@ -11,7 +11,9 @@
  *****************************************************************************/
 
 #include "kernel/Globals.h"
+#include "kernel/Paging.h"
 #include "user/KeyboardDemo.h"
+#include "user/ExceptionDemo.h"
 #include "user/HeapDemo.h"
 #include "user/CoroutineDemo.h"
 #include "user/CoopThreadDemo.h"
@@ -27,6 +29,7 @@ CoroutineDemo coroutineDemo;
 
 int main() {
     
+		//
     // Speicherverwaltung initialisieren
     allocator.init();
 
@@ -34,8 +37,27 @@ int main() {
     kout.clear();
 		kout.setpos(0,0);
 		/*	Keyboard Demo */
-		//kout << "Keyboard Demo" << endl;
+		kout << "Keyboard Demo" << endl;
 		//keyboard_demo();
+		
+		//exceptionDemo();
+		//
+
+		//pg_init();
+
+		//unsigned int* p1 = pg_alloc_page();
+		//*p1 = 0x10;
+		//pg_write_protect_page(p1);
+		//pg_notpresent_page(p1);
+
+		//kout << "p1: " << hex << p1 << endl;
+//		kout << "[p1]: " << hex << *p1 << endl;
+//		*p1 = 0x11;
+
+		unsigned int* pt2 = (unsigned int*) allocator.alloc(8);
+		kout << "[pt2]: " << hex << *pt2 << endl;
+
+
 
 		/*	Heap Demo */
 		//heap_demo();

@@ -7,4 +7,5 @@ build/IntDispatcher.o: kernel/interrupts/IntDispatcher.cc kernel/CPU.h \
  kernel/interrupts/ISR.h kernel/interrupts/IntDispatcher.h \
  kernel/threads/Scheduler.h kernel/threads/Dispatch.h \
  kernel/threads/Thread.h kernel/threads/ThreadState.h lib/Chain.h \
- lib/Queue.h devices/VESA.h devices/LFBgraphics.h devices/fonts/Fonts.h
+ lib/Queue.h devices/VESA.h devices/LFBgraphics.h devices/fonts/Fonts.h \
+ kernel/interrupts/Bluescreen.h

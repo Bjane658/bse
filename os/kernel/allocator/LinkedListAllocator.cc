@@ -28,9 +28,10 @@
  *                  Speicherverwaltung erstmalig gerufen wird.               *
  *****************************************************************************/
 void LinkedListAllocator::init() {
+	kout << "heap_start: " << heap_start << endl;
 
     struct free_block* first_free_block = (free_block*) heap_start;
-    *first_free_block = { heap_size };
+    *first_free_block = { heap_size, 0 };
 
     *free_start = { 0, first_free_block};
     
@@ -67,6 +68,7 @@ void LinkedListAllocator::dump_free_memory() {
 }
 
 struct free_and_prev_free_block LinkedListAllocator::findFreeFittingBlock(unsigned int req_size){
+    kout << "free_start" << endl;
     struct free_block* currentFreeBlock = free_start->next;
     struct free_block* prevFreeBlock = NULL;
 
@@ -120,7 +122,7 @@ void * LinkedListAllocator::alloc(unsigned int req_size) {
     
 
     //kout << "======== ====== ======" << endl;
-    
+  
     return (void *) allocatedStart + HEAP_BLOCK_SIZE_INFO;
 }
 
