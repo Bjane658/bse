@@ -86,6 +86,7 @@ inline unsigned int PCSPK::readCounter() {
  * Parameter:       time (delay in ms)                                       *
  *****************************************************************************/
 inline void PCSPK::delay (int time) {
+	/*
 	unsigned int cnt1=0, cnt2=0;
 
 	time = time/10;
@@ -104,6 +105,11 @@ inline void PCSPK::delay (int time) {
 
 			cnt1 = cnt2;
 		}
+	}
+	*/
+
+	unsigned int start = systime;
+	while(((systime - start)/10) < time){
 	}
 
 }

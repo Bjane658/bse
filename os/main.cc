@@ -91,6 +91,9 @@ int main() {
     // Interrupts erlauben (Tastatur)
     cpu.enable_int();
 
+		kout << "Playing tetris" << endl;
+		pcspk.tetris();
+
 		//Anwendung im Scheduler anmelden
 		//scheduler.Scheduler::schedule();
   
