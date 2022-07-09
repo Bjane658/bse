@@ -39,10 +39,9 @@ static IOport IMR2 (0xa1);    // interrupt mask register von PIC 2
  *      irq:        IRQ der erlaubt werden soll                              *
  *****************************************************************************/
 void PIC::allow (int irq) {
-    IMR1.outb(0b11111101);
+    //IMR1.outb(0b11111101);
     //IMR2.outb(0b11111111);
 
-    /* hier muss Code eingefuegt werden */
     if(irq > 7 || irq < 0){
         return;
     }

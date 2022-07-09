@@ -54,8 +54,8 @@ int main() {
 //		kout << "[p1]: " << hex << *p1 << endl;
 //		*p1 = 0x11;
 
-		unsigned int* pt2 = (unsigned int*) allocator.alloc(8);
-		kout << "[pt2]: " << hex << *pt2 << endl;
+	//	unsigned int* pt2 = (unsigned int*) allocator.alloc(8);
+	//	kout << "[pt2]: " << hex << *pt2 << endl;
 
 
 
@@ -83,12 +83,13 @@ int main() {
 		//scheduler.Scheduler::schedule();
 
 
+    kb.plugin();
+		pit.plugin();
     
     // Tastatur-Unterbrechungsroutine 'einstoepseln'
-    //kb.plugin();
 
     // Interrupts erlauben (Tastatur)
-    //cpu.enable_int();
+    cpu.enable_int();
 
 		//Anwendung im Scheduler anmelden
 		//scheduler.Scheduler::schedule();

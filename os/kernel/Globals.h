@@ -5,7 +5,7 @@
  *---------------------------------------------------------------------------*
  * Beschreibung:    Globale Variablen des Systems.                           *
  *                                                                           *
- * Autor:           Michael Schoettner, 30.7.16                              *
+ * Autor:           Michael Schoettner, 3.7.2022                             *
  *****************************************************************************/
 #ifndef __Globals_include__
 #define __Globals_include__
@@ -15,6 +15,7 @@
 #include "kernel/allocator/BumpAllocator.h"
 #include "kernel/allocator/LinkedListAllocator.h"
 #include "devices/PCSPK.h"
+#include "devices/PIT.h"
 #include "kernel/BIOS.h"
 #include "devices/CGA_Stream.h"
 #include "devices/Keyboard.h"
@@ -23,17 +24,27 @@
 #include "devices/VESA.h"
 
 
-extern CPU                   cpu;        // CPU-spezifische Funktionen
-extern PCSPK                 pcspk;      // PC-Lautsprecher
-extern CGA_Stream            kout;       // Ausgabe-Strom fuer Kernel
-extern Keyboard              kb;         // Tastatur
-extern IntDispatcher         intdis;     // Unterbrechungsverteilung
-extern PIC                   pic;        // Interrupt-Controller
-extern unsigned int          total_mem;  // RAM total
+
+//
+// Kernel-Klassen
+//
+extern CPU              cpu;        // CPU-spezifische Funktionen
+extern PIC              pic;        // Interrupt-Controller
+extern IntDispatcher    intdis;     // Unterbrechungsverteilung
+extern Scheduler        scheduler;  // Scheduler
+extern BIOS             bios;       // Schnittstelle zum 16-Bit BIOS
 //extern BumpAllocator         allocator;       
 extern LinkedListAllocator   allocator;       
-extern Scheduler             scheduler;  // Scheduler
-extern BIOS                  bios;       // Schnittstelle zum 16-Bit BIOS
-extern VESA                  vesa;       // VESA-Treiber
+extern unsigned int     total_mem;  // RAM total
+extern unsigned long    systime;    // wird all 10ms hochgezaehlt
+
+//
+// Geräte-Treiber-Klassen
+//
+extern PCSPK            pcspk;      // PC-Lautsprecher
+extern CGA_Stream       kout;       // Ausgabe-Strom fuer Kernel
+extern Keyboard         kb;         // Tastatur
+extern VESA             vesa;       // VESA-Treiber
+extern PIT              pit;        // Zeitgeber
 
 #endif

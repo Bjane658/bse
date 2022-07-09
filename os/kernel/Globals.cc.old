@@ -20,5 +20,7 @@ PIC                   pic;        // Interrupt-Controller
 unsigned int          total_mem;  // RAM total
 //BumpAllocator         allocator;       
 LinkedListAllocator   allocator;       
-Scheduler   scheduler;       
+Scheduler             scheduler;  // Scheduler
+BIOS                  bios;       // Schnittstelle zum 16-Bit BIOS
+VESA                  vesa;       // VESA-Treiber
 
