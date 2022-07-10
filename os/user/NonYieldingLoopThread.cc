@@ -6,7 +6,7 @@
  * Beschreibung:    Demo eines Threads. Schleife die Zahlen ausgibt.         *
  *****************************************************************************/
 
-#include "user/LoopThread.h"
+#include "user/NonYieldingLoopThread.h"
 #include "kernel/Globals.h"
 
 
@@ -15,17 +15,16 @@
  *---------------------------------------------------------------------------*
  * Beschreibung:    Code des Threads.                                        *
  *****************************************************************************/
-void LoopThread::run () {
+void NonYieldingLoopThread::run () {
 	unsigned int counter = 0;
 	
 	while(1){
     cpu.disable_int();
 		kout.setpos(0,5 + id);
 		kout << "Thread[" << id << "]: " << dec << counter;
-		kout.flush();
     cpu.enable_int();
+		kout.flush();
 		counter += 1;
-		scheduler.yield();
 	}
    
 }

@@ -13,6 +13,15 @@
 #include "kernel/threads/IdleThread.h"
 
 
+/*****************************************************************************
+ * Methode:         Scheduler::Scheduler                                     *
+ *---------------------------------------------------------------------------*
+ * Beschreibung:    Konstruktor des Schedulers. Registriert den Leerlauf-    *
+ *                  Thread.                                                  *
+ *****************************************************************************/
+Scheduler::Scheduler () {
+    initialized = false;
+}
 
 /*****************************************************************************
  * Methode:         Scheduler::schedule                                      *
@@ -39,7 +48,13 @@ void Scheduler::schedule () {
  *      that        Einzutragender Thread                                    *
  *****************************************************************************/
 void Scheduler::ready (Thread * that) {
-	readyQueue.enqueue(that);
+    // Thread-Wechsel durch PIT verhindern
+    cpu.disable_int ();
+
+    readyQueue.enqueue (that);
+
+    // Thread-Wechsel durch PIT jetzt wieder erlauben
+    cpu.enable_int ();
 }
 
 
@@ -52,10 +67,16 @@ void Scheduler::ready (Thread * that) {
  *                  nicht in der readyQueue.                                 *
  *****************************************************************************/
 void Scheduler::exit () {
+    // Thread-Wechsel durch PIT verhindern
+    cpu.disable_int ();
+
 	Thread* nextThread = (Thread*)readyQueue.dequeue();
 	//readyQueue.dump(false);
 	//kout << "nextThread: " << hex << nextThread << endl;
 	dispatch(*nextThread);
+	
+    // Interrupts werden in Thread_switch in Thread.asm wieder zugelassen
+    // dispatch kehr nicht zurueck
 }
 
 
@@ -71,7 +92,13 @@ void Scheduler::exit () {
  *      that        Zu terminierender Thread                                 *
  *****************************************************************************/
 void Scheduler::kill (Thread * that) {
-	readyQueue.remove(that);
+    // Thread-Wechsel durch PIT verhindern
+    cpu.disable_int ();
+
+    readyQueue.remove (that);
+    
+    // Thread-Wechsel durch PIT jetzt wieder erlauben
+    cpu.enable_int ();
 }
 
 
@@ -87,11 +114,25 @@ void Scheduler::kill (Thread * that) {
  *                           readyQueue leer.                                *
  *****************************************************************************/
 void Scheduler::yield () {
-	//kout << "Before dequeue" << endl;
-	//readyQueue.dump(false);
+  cpu.disable_int ();
+
 	Thread* nextThread = (Thread*)readyQueue.dequeue();
+
 	ready(get_active());
-	//kout << "After dequeue and ready" << endl;
-	//readyQueue.dump(false);
+
 	dispatch(*nextThread);
+
+  cpu.enable_int ();
+}
+
+/*****************************************************************************
+ * Methode:         Scheduler::preempt                                       *
+ *---------------------------------------------------------------------------*
+ * Beschreibung:    Diese Funktion wird aus der ISR des PITs aufgerufen und  *
+ *                  schaltet auf den naechsten Thread um, sofern einer vor-  *
+ *                  handen ist.                                              *
+ *****************************************************************************/
+void Scheduler::preempt () {
+	yield();
+   
 }

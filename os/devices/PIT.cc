@@ -47,7 +47,6 @@ void PIT::dumpStatus(){
 void PIT::plugin () {
 		if(timer_interval > 0){
 			int counter = (int) timer_interval/0.83809511038551;
-			kout << "counter: " << counter << endl;
 			int low = 0x00FF & counter;
 			int high = counter >> 8;
 			
@@ -59,7 +58,6 @@ void PIT::plugin () {
 
 
     // in IntDispatcher registrieren
-    kout << "plugin PIT" << endl;
     intdis.assign(intdis.time, *this);
 
     // in PIC Interrupts des Timer zulassen
@@ -73,7 +71,7 @@ void PIT::printClock(){
 	int prevY = 0;
 	kout.getpos(prevX, prevY);
 
-	kout.setpos(0,0);
+	kout.setpos(50,0);
 	switch(timer_char){
 		case 0:
 			kout << '|';
@@ -106,11 +104,14 @@ void PIT::printClock(){
  *****************************************************************************/
 void PIT::trigger () {
 		if(systime % 100 == 0){
+			//kout.clear();
 			printClock();
 		}
     
     // alle 10ms, Systemzeit weitersetzen
     systime++;
+
+		scheduler.Scheduler::preempt();
 
 
     // Bei jedem Tick einen Threadwechsel ausloesen.

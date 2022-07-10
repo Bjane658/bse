@@ -68,13 +68,11 @@ void LinkedListAllocator::dump_free_memory() {
 }
 
 struct free_and_prev_free_block LinkedListAllocator::findFreeFittingBlock(unsigned int req_size){
-    kout << "free_start" << endl;
     struct free_block* currentFreeBlock = free_start->next;
     struct free_block* prevFreeBlock = NULL;
 
     while(currentFreeBlock->size < req_size + 32)
     {
-        kout << "inside while" << endl;
         if(currentFreeBlock->next == 0){
             currentFreeBlock = NULL;
             break;

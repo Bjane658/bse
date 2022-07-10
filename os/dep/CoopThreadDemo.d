@@ -8,4 +8,4 @@ build/CoopThreadDemo.o: user/CoopThreadDemo.cc kernel/Globals.h \
  kernel/threads/Dispatch.h kernel/threads/Thread.h \
  kernel/threads/ThreadState.h lib/Chain.h lib/Queue.h devices/VESA.h \
  devices/LFBgraphics.h devices/fonts/Fonts.h user/CoopThreadDemo.h \
- user/LoopThread.h
+ user/LoopThread.h user/NonYieldingLoopThread.h

@@ -25,7 +25,9 @@ public:
     IdleThread () : Thread () {  }
     
     void run () {
-						kout << "IdleThread[" << hex << tid << "]" << endl;
+        // Idle-Thread läuft, ab jetzt ist der Scheduler fertig initialisiert
+        scheduler.setInitialized();
+				//kout << "IdleThread[" << hex << tid << "]" << endl;
         while (1) {
             scheduler.yield();
         }

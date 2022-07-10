@@ -17,6 +17,7 @@
 #include "user/HeapDemo.h"
 #include "user/CoroutineDemo.h"
 #include "user/CoopThreadDemo.h"
+#include "user/PreemtiveThreadDemo.h"
 #include "user/VBEdemo.h"
 #include "user/HelloWorldThread.h"
 #include "user/LoopThread.h"
@@ -37,25 +38,28 @@ int main() {
     kout.clear();
 		kout.setpos(0,0);
 		/*	Keyboard Demo */
-		kout << "Keyboard Demo" << endl;
+		//kout << "Keyboard Demo" << endl;
 		//keyboard_demo();
 		
 		//exceptionDemo();
 		//
 
-		//pg_init();
+		//paging
+		/*
+		pg_init();
 
-		//unsigned int* p1 = pg_alloc_page();
-		//*p1 = 0x10;
-		//pg_write_protect_page(p1);
-		//pg_notpresent_page(p1);
+		unsigned int* p1 = pg_alloc_page();
+		*p1 = 0x10;
+		pg_write_protect_page(p1);
+		pg_notpresent_page(p1);
 
-		//kout << "p1: " << hex << p1 << endl;
-//		kout << "[p1]: " << hex << *p1 << endl;
-//		*p1 = 0x11;
+		kout << "p1: " << hex << p1 << endl;
+		kout << "[p1]: " << hex << *p1 << endl;
+		*p1 = 0x11;
 
-	//	unsigned int* pt2 = (unsigned int*) allocator.alloc(8);
-	//	kout << "[pt2]: " << hex << *pt2 << endl;
+		unsigned int* pt2 = (unsigned int*) allocator.alloc(8);
+		kout << "[pt2]: " << hex << *pt2 << endl;
+		*/
 
 
 
@@ -69,12 +73,19 @@ int main() {
 		//
 		
 
-		/* Thread Demo */
+		/* Coop Thread Demo */
+		
+	
 		/*
-		//HelloWorldThread* hw = new HelloWorldThread();
 		CoopThreadDemo* coop = new CoopThreadDemo();
 		scheduler.Scheduler::ready(coop);
 		*/
+		
+
+		/* Preemtive Thread Demo */
+		PreemtiveThreadDemo* preemtive = new PreemtiveThreadDemo();
+		scheduler.Scheduler::ready(preemtive);
+		
 
 		/* Graphic Demo */
 		//VBEdemo* vbeDemo = new VBEdemo();
@@ -91,11 +102,11 @@ int main() {
     // Interrupts erlauben (Tastatur)
     cpu.enable_int();
 
-		kout << "Playing tetris" << endl;
-		pcspk.tetris();
+		//kout << "Playing tetris" << endl;
+		//pcspk.tetris();
 
 		//Anwendung im Scheduler anmelden
-		//scheduler.Scheduler::schedule();
+		scheduler.Scheduler::schedule();
   
   
     while (1) ; // wir kehren nicht zum Bootlader zurueck

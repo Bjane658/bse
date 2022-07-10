@@ -30,11 +30,11 @@ private:
     Thread(const Thread &copy); // Verhindere Kopieren
 
 private:
-    struct ThreadState regs;
     unsigned int *stack;
    
 public:
     unsigned int tid;       // Thread-ID (wird im Konstruktor vergeben)
+    struct ThreadState regs;
 
     Thread ();
     

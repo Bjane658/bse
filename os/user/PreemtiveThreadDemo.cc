@@ -1,17 +1,18 @@
+
 /*****************************************************************************
  *                                                                           *
- *             C O O P E R A T I V E T H R E A D D E M O                     *
+ *             Preemtive Thread demo										                     *
  *                                                                           *
  *---------------------------------------------------------------------------*
- * Beschreibung:    Beispiel für kooperative Threads.                        *
+ * Beschreibung:    Beispiel für preemtive Threads.                        *
  *                                                                           *
  * Autor:           Michael Schoettner, HHU, 21.8.2016                       *
  *****************************************************************************/
 
 #include "kernel/Globals.h"
-#include "user/CoopThreadDemo.h"
+#include "user/PreemtiveThreadDemo.h"
 #include "user/LoopThread.h"
-#include "user/NonYieldingLoopThread.h"
+#include "user/TetrisThread.h"
 
 
 /*****************************************************************************
@@ -20,29 +21,18 @@
  * Beschreibung:    Der Anwendungsthread erzeugt drei Threads die Zaehler    *
  *                  ausgeben und terminiert sich selbst.                     *
  *****************************************************************************/
-void CoopThreadDemo::run () {
-	unsigned int counter = 0;
+void PreemtiveThreadDemo::run () {
+
 	LoopThread* l0 = new LoopThread(0);
-	LoopThread* l1 = new LoopThread(1);
-	LoopThread* l2 = new LoopThread(2);
-	//NonYieldingLoopThread* l3 = new NonYieldingLoopThread(3);
-	//scheduler.Scheduler::readyQueue.dump(false);
+	//LoopThread* l1 = new LoopThread(1);
+	TetrisThread* tetris = new TetrisThread(1);
 
 	scheduler.Scheduler::ready(l0);
-	scheduler.Scheduler::ready(l1);
-	scheduler.Scheduler::ready(l2);
-	//scheduler.Scheduler::ready(l3);
+	//scheduler.Scheduler::ready(l1);
+	scheduler.Scheduler::ready(tetris);
 	//scheduler.Scheduler::readyQueue.dump(false);
 
 	while(1){
-		kout.setpos(0,0);
-		kout << "DemoRun: " << dec << counter;
-		kout.flush();
-		if(counter >= 1000){
-			scheduler.kill(l1);
-			scheduler.exit();
-		}
-		counter = counter + 1;
 		scheduler.yield();
 	}
 }
