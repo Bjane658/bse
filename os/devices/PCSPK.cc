@@ -108,10 +108,11 @@ inline void PCSPK::delay (int time) {
 	}
 	*/
 
+	//kout << "delay: " << dec << time << " start: " << dec << systime << endl;
 	unsigned int start = systime;
-	while(((systime - start)/10) < time){
+	while(((systime - start)*10) < time){
 	}
-
+	//kout << "delay end systime: " << dec << systime << endl;
 }
 
 
@@ -123,6 +124,7 @@ inline void PCSPK::delay (int time) {
  *                  https://gist.github.com/XeeX/6220067                     *
  *****************************************************************************/
 void PCSPK::tetris () {
+	kout << "Start playing tetris" << endl;
     play(658, 125);
     play(1320, 500);
     play(990, 250);
