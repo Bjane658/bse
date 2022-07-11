@@ -21,7 +21,7 @@ void LoopThread::run () {
 	while(1){
     cpu.disable_int();
 		kout.setpos(0,5 + id);
-		kout << "Thread[" << id << "]: " << dec << counter;
+		kout << "Thread[" << id << "]tid: " << tid << " counter: " << dec << counter;
 		kout.flush();
     cpu.enable_int();
 		counter += 1;

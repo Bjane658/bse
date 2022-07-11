@@ -36,12 +36,12 @@ void CoopThreadDemo::run () {
 
 	while(1){
 		kout.setpos(0,0);
-		kout << "DemoRun: " << dec << counter;
+		kout << "Tid: " << dec << tid << " DemoRun: " << dec << counter;
 		kout.flush();
-		if(counter >= 1000){
-			scheduler.kill(l1);
-			scheduler.exit();
-		}
+		//if(counter >= 1000){
+			//scheduler.kill(l1);
+			//scheduler.exit();
+		//}
 		counter = counter + 1;
 		scheduler.yield();
 	}

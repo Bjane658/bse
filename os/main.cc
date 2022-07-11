@@ -38,8 +38,11 @@ int main() {
     kout.clear();
 		kout.setpos(0,0);
 		/*	Keyboard Demo */
-		//kout << "Keyboard Demo" << endl;
+		kout << "Keyboard Demo" << endl;
 		//keyboard_demo();
+		kout.clear();
+		kout.setpos(0,0);
+		kout << "Other Demo" << endl;
 		
 		//exceptionDemo();
 		//
@@ -74,33 +77,34 @@ int main() {
 		
 
 		/* Coop Thread Demo */
-		
-	
 		/*
 		CoopThreadDemo* coop = new CoopThreadDemo();
 		scheduler.Scheduler::ready(coop);
 		*/
 		
+		
 
 		/* Preemtive Thread Demo */
-		PreemtiveThreadDemo* preemtive = new PreemtiveThreadDemo();
-		scheduler.Scheduler::ready(preemtive);
+		//PreemtiveThreadDemo* preemtive = new PreemtiveThreadDemo();
+		//scheduler.Scheduler::ready(preemtive);
 		
 
 		/* Graphic Demo */
-		//VBEdemo* vbeDemo = new VBEdemo();
-		//scheduler.Scheduler::ready(vbeDemo);
+		/*
+		VBEdemo* vbeDemo = new VBEdemo();
+		scheduler.Scheduler::ready(vbeDemo);
+		*/
 
 		//scheduler.Scheduler::schedule();
 
 
     kb.plugin();
-		pit.plugin();
+		//pit.plugin();
     
     // Tastatur-Unterbrechungsroutine 'einstoepseln'
 
     // Interrupts erlauben (Tastatur)
-    cpu.enable_int();
+    //cpu.enable_int();
 
 		//kout << "Playing tetris" << endl;
 		//pcspk.tetris();
@@ -108,6 +112,8 @@ int main() {
 		//Anwendung im Scheduler anmelden
 		scheduler.Scheduler::schedule();
   
+		kout.setpos(0,22);
+		kout << "after schedule" << endl;
   
     while (1) ; // wir kehren nicht zum Bootlader zurueck
     return 0;

@@ -366,10 +366,10 @@ void Keyboard::plugin(){
 
 void Keyboard::trigger(){
     CGA_Stream ko;
-    ko << "Keyboar trigger" << endl;
+    //ko << "Keyboar trigger" << endl;
     Key key = key_hit();
     if(key.valid()){
-        ko << key.ascii() << endl;
+       ko << key.ascii() << endl;
      }
     
 }

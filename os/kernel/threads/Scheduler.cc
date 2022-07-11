@@ -33,7 +33,7 @@ void Scheduler::schedule () {
 		ready(it);
 
 		Thread* firstThread = (Thread*)readyQueue.dequeue();
-		ready(firstThread);
+		//ready(firstThread);
 		start(*firstThread);
 
 }
@@ -70,6 +70,7 @@ void Scheduler::exit () {
     // Thread-Wechsel durch PIT verhindern
     cpu.disable_int ();
 
+	//readyQueue.dump(false);
 	Thread* nextThread = (Thread*)readyQueue.dequeue();
 	//readyQueue.dump(false);
 	//kout << "nextThread: " << hex << nextThread << endl;
@@ -120,7 +121,11 @@ void Scheduler::yield () {
 
 	ready(get_active());
 
-	dispatch(*nextThread);
+	if(nextThread == 0){
+		kout << "empty queue" << endl;
+	}else{
+		dispatch(*nextThread);
+	}
 
   cpu.enable_int ();
 }

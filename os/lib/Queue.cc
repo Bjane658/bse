@@ -64,6 +64,8 @@ void Queue::remove(Chain* item){
 }
 
 void Queue::dump(bool verbose){
+	//kout.clear();
+	kout.setpos(0,15);
 	if(verbose){
 		kout << "Queue Dump:" << endl;
 		kout << "head: " << hex << head << " head Address: " << hex << &head << endl;

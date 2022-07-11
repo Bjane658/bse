@@ -19,6 +19,7 @@
 class IdleThread : public Thread {
     
 private:
+		int counter = 0;
     IdleThread(const Thread &copy); // Verhindere Kopieren
 
 public:
@@ -29,6 +30,9 @@ public:
         scheduler.setInitialized();
 				//kout << "IdleThread[" << hex << tid << "]" << endl;
         while (1) {
+						kout.setpos(0,20);
+						kout << "IdleThread[" << dec << tid << "]: " << dec << counter << endl;
+						counter += 1;
             scheduler.yield();
         }
     }

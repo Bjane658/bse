@@ -109,8 +109,19 @@ void VBEdemo::run () {
 		vesa.drawCircle(250,250,50);
 		drawBitmap();
 		drawFonts();
+
+    while(1){
+        Key key = kb.key_hit();
+        if(key.valid()){
+					if((int) key.ascii() == 0){
+						break;
+					}
+        }
+    }
+    vesa.initTextMode();
+		kout.clear();
+
     
-    /* Hier muss Code eingefuegt werden */
 
     // selbst terminieren
     scheduler.exit ();
