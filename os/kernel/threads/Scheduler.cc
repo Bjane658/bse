@@ -31,7 +31,7 @@ Scheduler::Scheduler () {
 void Scheduler::schedule () {
 		IdleThread* it = new IdleThread();
 		ready(it);
-
+		initialized = true;
 		Thread* firstThread = (Thread*)readyQueue.dequeue();
 		//ready(firstThread);
 		start(*firstThread);
@@ -138,6 +138,8 @@ void Scheduler::yield () {
  *                  handen ist.                                              *
  *****************************************************************************/
 void Scheduler::preempt () {
-	yield();
+	if(initialized){
+		yield();
+	}
    
 }

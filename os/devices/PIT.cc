@@ -111,14 +111,12 @@ void PIT::trigger () {
     // alle 10ms, Systemzeit weitersetzen
     systime++;
 
-		scheduler.Scheduler::preempt();
-
-
     // Bei jedem Tick einen Threadwechsel ausloesen.
     // Aber nur wenn der Scheduler bereits fertig intialisiert wurde
     // und ein weiterer Thread rechnen moechte
-
-    /* hier muss Code eingefuegt werden */
+		if(scheduler.Scheduler::isInitialized()){
+			scheduler.Scheduler::preempt();
+		}
 }
 
 

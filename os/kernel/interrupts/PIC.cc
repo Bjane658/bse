@@ -72,11 +72,11 @@ void PIC::forbid (int irq) {
     unsigned int imr1 = IMR1.inb();
     unsigned int imr2 = IMR2.inb();
     unsigned int imr = imr2 << 8 | imr1;
-    kout << "IMR: " << bin << imr << endl;
+    //kout << "IMR: " << bin << imr << endl;
 
     unsigned int forbitBit = 1 << irq;
     unsigned int result = imr | forbitBit;
-    kout << "IMR: " << bin << result << endl;
+    //kout << "IMR: " << bin << result << endl;
 
     IMR1.outb(result);
 }

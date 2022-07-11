@@ -9,7 +9,6 @@
  *****************************************************************************/
 
 #include "devices/Keyboard.h"
-#include "devices/CGA_Stream.h"
 #include "kernel/Globals.h"
 
 /* Tabellen fuer ASCII-Codes (Klassenvariablen) intiialisieren */
@@ -356,7 +355,6 @@ void Keyboard::set_led (char led, bool on) {
 
 void Keyboard::plugin(){
     // in IntDispatcher registrieren
-    kout << "plugin" << endl;
     intdis.assign(intdis.keyboard, *this);
 
     // in PIC Interrupts der Tastatur zulassen
@@ -365,11 +363,16 @@ void Keyboard::plugin(){
 }
 
 void Keyboard::trigger(){
-    CGA_Stream ko;
-    //ko << "Keyboar trigger" << endl;
+    //kout << "Keyboar trigger" << endl;
     Key key = key_hit();
     if(key.valid()){
-       ko << key.ascii() << endl;
+				if((int) key.ascii() == 0){
+					kout.clear();
+  				pic.forbid(pic.keyboard);
+    			scheduler.exit();
+				}
+       kout << key.ascii();
+			 kout.flush();
      }
     
 }

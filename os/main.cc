@@ -13,6 +13,9 @@
 #include "kernel/Globals.h"
 #include "kernel/Paging.h"
 #include "user/TextDemo.h"
+#include "user/KeyIRQDemo.h"
+#include "user/KeyIRQThread.h"
+#include "user/TextThread.h"
 #include "user/KeyboardDemo.h"
 #include "user/ExceptionDemo.h"
 #include "user/HeapDemo.h"
@@ -31,15 +34,19 @@ CoroutineDemo coroutineDemo;
 
 int main() {
 
-	textDemo();
     
 		//
     // Speicherverwaltung initialisieren
-    //allocator.init();
+    allocator.init();
 
     // Bildschirm loeschen.
-    //kout.clear();
-		//kout.setpos(0,0);
+    kout.clear();
+		kout.setpos(0,0);
+		kout << "Demo" << endl;
+
+		//textDemo();
+		key_irq_demo();
+
 		/*	Keyboard Demo */
 		//kout << "Keyboard Demo" << endl;
 		//keyboard_demo();
@@ -78,6 +85,13 @@ int main() {
 		//coroutineDemo.main();
 		//
 		
+		/* Text Thread Demo */
+		//TextThread* textThread = new TextThread();
+		//scheduler.Scheduler::ready(textThread);
+
+		/* Key IRQ Thread Demo */
+		KeyIRQThread* keyIRQThread = new KeyIRQThread();
+		scheduler.Scheduler::ready(keyIRQThread);
 
 		/* Coop Thread Demo */
 		/*
@@ -101,19 +115,18 @@ int main() {
 		//scheduler.Scheduler::schedule();
 
 
-    //kb.plugin();
-		//pit.plugin();
+		pit.plugin();
     
     // Tastatur-Unterbrechungsroutine 'einstoepseln'
 
     // Interrupts erlauben (Tastatur)
-    //cpu.enable_int();
+    cpu.enable_int();
 
 		//kout << "Playing tetris" << endl;
 		//pcspk.tetris();
 
 		//Anwendung im Scheduler anmelden
-		//scheduler.Scheduler::schedule();
+		scheduler.Scheduler::schedule();
   
     while (1) ; // wir kehren nicht zum Bootlader zurueck
     return 0;

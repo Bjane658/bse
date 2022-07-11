@@ -12,7 +12,10 @@
 
 
 void key_irq_demo() {
-
-   /* Hier muss Code eingefuegt werden */
-
+  cpu.disable_int();
+	kout.clear();
+	kout.setpos(1,1);
+	kout << "Tastatur per Interrupt Demo" << endl;
+  kb.plugin();
+  cpu.enable_int();
 }
