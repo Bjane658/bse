@@ -12,6 +12,7 @@
 
 #include "kernel/Globals.h"
 #include "kernel/Paging.h"
+#include "user/TextDemo.h"
 #include "user/KeyboardDemo.h"
 #include "user/ExceptionDemo.h"
 #include "user/HeapDemo.h"
@@ -29,20 +30,22 @@ CoroutineDemo coroutineDemo;
 
 
 int main() {
+
+	textDemo();
     
 		//
     // Speicherverwaltung initialisieren
-    allocator.init();
+    //allocator.init();
 
     // Bildschirm loeschen.
-    kout.clear();
-		kout.setpos(0,0);
+    //kout.clear();
+		//kout.setpos(0,0);
 		/*	Keyboard Demo */
-		kout << "Keyboard Demo" << endl;
+		//kout << "Keyboard Demo" << endl;
 		//keyboard_demo();
-		kout.clear();
-		kout.setpos(0,0);
-		kout << "Other Demo" << endl;
+		//kout.clear();
+		//kout.setpos(0,0);
+		//kout << "Other Demo" << endl;
 		
 		//exceptionDemo();
 		//
@@ -98,7 +101,7 @@ int main() {
 		//scheduler.Scheduler::schedule();
 
 
-    kb.plugin();
+    //kb.plugin();
 		//pit.plugin();
     
     // Tastatur-Unterbrechungsroutine 'einstoepseln'
@@ -110,10 +113,7 @@ int main() {
 		//pcspk.tetris();
 
 		//Anwendung im Scheduler anmelden
-		scheduler.Scheduler::schedule();
-  
-		kout.setpos(0,22);
-		kout << "after schedule" << endl;
+		//scheduler.Scheduler::schedule();
   
     while (1) ; // wir kehren nicht zum Bootlader zurueck
     return 0;
