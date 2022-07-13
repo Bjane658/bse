@@ -40,6 +40,11 @@ void heap_demo() {
     kout << "my2 Address: " << hex << my2 << "  myNum: " << dec << my2->myNum << "  myChar: "  << my2->myChar << endl;
     kout << endl;
     allocator.dump_free_memory();
+		unsigned int* wrong = &total_mem;
+
+		kout << "wrong: " << dec << *wrong << endl;
+		kout << "total_mem location" << hex << &total_mem << endl;
+		kout << "total_mem" << dec << total_mem << endl;
 		kout << "Weiter mit <ENTER>" << endl;
 
     while(1){

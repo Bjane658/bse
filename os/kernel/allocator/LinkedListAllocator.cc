@@ -28,12 +28,18 @@
  *                  Speicherverwaltung erstmalig gerufen wird.               *
  *****************************************************************************/
 void LinkedListAllocator::init() {
-	kout << "heap_start: " << heap_start << endl;
+	kout << "heap_start: " << hex << heap_start << endl;
+	kout << "total_mem: " << total_mem << endl;
+	kout << "free_start: " << hex << free_start <<endl;
+	kout << "free_start addr: " << hex << &free_start <<endl;
 
     struct free_block* first_free_block = (free_block*) heap_start;
     *first_free_block = { heap_size, 0 };
 
-    *free_start = { 0, first_free_block};
+		free_start_value = { 0, first_free_block };
+		kout << "free_start_value address: " << hex << &free_start_value << endl;
+		kout << "first_free_block address: " << hex << &first_free_block << endl;
+    free_start = &free_start_value;
     
     /*
     kout << "free start: " << hex << free_start << "    size: " << dec << free_start->size << " next free Address: " << hex << free_start->next << endl;
@@ -110,7 +116,7 @@ void * LinkedListAllocator::alloc(unsigned int req_size) {
     //kout << "allocatedStart return Address: " << hex << (void *) allocatedStart + HEAP_BLOCK_SIZE_INFO << endl;
     
 
-    if(freeAndPrevFreeBlock.prev == free_start->next){
+    if(freeAndPrevFreeBlock.prev == 0 || freeAndPrevFreeBlock.prev == free_start->next){
         free_start = newFreeBlock;
     
     }else{

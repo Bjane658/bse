@@ -33,6 +33,7 @@ class LinkedListAllocator : Allocator {
 private:
       // freie Bloecke werden verkettet
       struct free_block *free_start;
+			struct free_block free_start_value;
 
       LinkedListAllocator(Allocator &copy); // Verhindere Kopieren
       struct free_and_prev_free_block findFreeFittingBlock(unsigned int req_size);
@@ -40,7 +41,7 @@ private:
       void consolidateFreeBlocks(struct free_block* prevFreeBlock, struct free_block* freeBlock);
 
 public:
-      LinkedListAllocator () { }
+      LinkedListAllocator () {}
 
       void init ();        
       void dump_free_memory ();

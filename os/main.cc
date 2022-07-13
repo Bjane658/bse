@@ -40,44 +40,53 @@ int main() {
     allocator.init();
 
     // Bildschirm loeschen.
-    kout.clear();
-		kout.setpos(0,0);
-		kout << "Demo" << endl;
+    //kout.clear();
+		//kout.setpos(0,0);
 
 		//textDemo();
-		key_irq_demo();
-
-		/*	Keyboard Demo */
-		//kout << "Keyboard Demo" << endl;
+		//key_irq_demo();
 		//keyboard_demo();
-		//kout.clear();
-		//kout.setpos(0,0);
-		//kout << "Other Demo" << endl;
-		
 		//exceptionDemo();
-		//
+		//heap_demo();
+		//pcspk.tetris();
+
 
 		//paging
-		/*
 		pg_init();
 
 		unsigned int* p1 = pg_alloc_page();
 		*p1 = 0x10;
 		pg_write_protect_page(p1);
-		pg_notpresent_page(p1);
+		//pg_notpresent_page(p1);
 
-		kout << "p1: " << hex << p1 << endl;
-		kout << "[p1]: " << hex << *p1 << endl;
-		*p1 = 0x11;
+		kout << "p1 address: " << hex << p1 << endl;
+		kout << "p1 value: " << hex << *p1 << endl;
+		//*p1 = 0x11;
+		unsigned int* p4 = (unsigned int*) 0xbffffc;
+		*p4 = 0x11;
+		kout << "p4 address: " << hex << p4 << endl;
+		kout << "p4 value: " << hex << *p4 << endl;
 
-		unsigned int* pt2 = (unsigned int*) allocator.alloc(8);
-		kout << "[pt2]: " << hex << *pt2 << endl;
-		*/
+		unsigned int* p2 = pg_alloc_page();
+		//*p2 = 0x22;
+		kout << "p2 address: " << hex << p2 << endl;
+		kout << "p2 value: " << hex << *p2 << endl;
+
+		unsigned int* p3 = pg_alloc_page();
+		*p3 = 0x33;
+		kout << "p3 address: " << hex << p3 << endl;
+		kout << "p3 value: " << hex << *p3 << endl;
+
+		unsigned int* pt5 = (unsigned int*) allocator.alloc(8);
+		kout << "[pt5]: " << hex << pt5 << endl;
 
 
 
-		/*	Heap Demo */
-		//heap_demo();
+		/****************************************************
+		 *																									*
+		 *								THREADS														*
+		 *																									*
+		 ****************************************************/
 
 		// CoroutineDemo
     //kout.setpos(0,0);
@@ -90,15 +99,16 @@ int main() {
 		//scheduler.Scheduler::ready(textThread);
 
 		/* Key IRQ Thread Demo */
+		/*
 		KeyIRQThread* keyIRQThread = new KeyIRQThread();
 		scheduler.Scheduler::ready(keyIRQThread);
+		*/
 
 		/* Coop Thread Demo */
 		/*
 		CoopThreadDemo* coop = new CoopThreadDemo();
 		scheduler.Scheduler::ready(coop);
 		*/
-		
 		
 
 		/* Preemtive Thread Demo */
@@ -115,18 +125,17 @@ int main() {
 		//scheduler.Scheduler::schedule();
 
 
-		pit.plugin();
+		//pit.plugin();
     
     // Tastatur-Unterbrechungsroutine 'einstoepseln'
+		// kb.plugin();
 
     // Interrupts erlauben (Tastatur)
     cpu.enable_int();
 
-		//kout << "Playing tetris" << endl;
-		//pcspk.tetris();
 
 		//Anwendung im Scheduler anmelden
-		scheduler.Scheduler::schedule();
+		//scheduler.Scheduler::schedule();
   
     while (1) ; // wir kehren nicht zum Bootlader zurueck
     return 0;
