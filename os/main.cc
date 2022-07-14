@@ -27,6 +27,7 @@
 #include "user/LoopThread.h"
 #include "lib/Queue.h"
 #include "lib/Chain.h"
+#include "kernel/threads/IdleThread.h"
 
 
 CoroutineDemo coroutineDemo;
@@ -52,7 +53,7 @@ int main() {
 
 
 		//paging
-		//pg_init();
+		pg_init();
 
 		/*
 		unsigned int* p1 = pg_alloc_page();
@@ -77,10 +78,12 @@ int main() {
 		*p3 = 0x33;
 		kout << "p3 address: " << hex << p3 << endl;
 		kout << "p3 value: " << hex << *p3 << endl;
+		*/
 
 		unsigned int* pt5 = (unsigned int*) allocator.alloc(8);
 		kout << "[pt5]: " << hex << pt5 << endl;
-		*/
+		unsigned int* pt6 = (unsigned int*) allocator.alloc(8);
+		kout << "[pt6]: " << hex << pt6 << endl;
 
 
 
@@ -116,6 +119,7 @@ int main() {
 		
 
 		/* Preemtive Thread Demo */
+		IdleThread* it = new IdleThread();
 		PreemtiveThreadDemo* preemtive = new PreemtiveThreadDemo();
 		scheduler.Scheduler::ready(preemtive);
 		
@@ -129,7 +133,7 @@ int main() {
 		//scheduler.Scheduler::schedule();
 
 
-		//pit.plugin();
+		pit.plugin();
     
     // Tastatur-Unterbrechungsroutine 'einstoepseln'
 		// kb.plugin();

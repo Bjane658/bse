@@ -29,13 +29,14 @@ Scheduler::Scheduler () {
  * Beschreibung:    Scheduler starten. Wird nur einmalig aus main.cc gerufen.*
  *****************************************************************************/
 void Scheduler::schedule () {
+    cpu.disable_int ();
 		IdleThread* it = new IdleThread();
 		ready(it);
 		initialized = true;
 		Thread* firstThread = (Thread*)readyQueue.dequeue();
 		//ready(firstThread);
 		start(*firstThread);
-
+    cpu.enable_int ();
 }
 
 

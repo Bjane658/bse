@@ -117,7 +117,8 @@ void * LinkedListAllocator::alloc(unsigned int req_size) {
     
 
     if(freeAndPrevFreeBlock.prev == 0 || freeAndPrevFreeBlock.prev == free_start->next){
-        free_start = newFreeBlock;
+				free_start_value = {0, newFreeBlock};
+        free_start = &free_start_value;
     
     }else{
         freeAndPrevFreeBlock.prev->next = newFreeBlock;
