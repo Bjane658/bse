@@ -52,8 +52,9 @@ int main() {
 
 
 		//paging
-		pg_init();
+		//pg_init();
 
+		/*
 		unsigned int* p1 = pg_alloc_page();
 		*p1 = 0x10;
 		pg_write_protect_page(p1);
@@ -79,6 +80,7 @@ int main() {
 
 		unsigned int* pt5 = (unsigned int*) allocator.alloc(8);
 		kout << "[pt5]: " << hex << pt5 << endl;
+		*/
 
 
 
@@ -105,15 +107,17 @@ int main() {
 		*/
 
 		/* Coop Thread Demo */
+	
 		/*
 		CoopThreadDemo* coop = new CoopThreadDemo();
 		scheduler.Scheduler::ready(coop);
 		*/
 		
+		
 
 		/* Preemtive Thread Demo */
-		//PreemtiveThreadDemo* preemtive = new PreemtiveThreadDemo();
-		//scheduler.Scheduler::ready(preemtive);
+		PreemtiveThreadDemo* preemtive = new PreemtiveThreadDemo();
+		scheduler.Scheduler::ready(preemtive);
 		
 
 		/* Graphic Demo */
@@ -135,7 +139,7 @@ int main() {
 
 
 		//Anwendung im Scheduler anmelden
-		//scheduler.Scheduler::schedule();
+		scheduler.Scheduler::schedule();
   
     while (1) ; // wir kehren nicht zum Bootlader zurueck
     return 0;
