@@ -27,6 +27,7 @@
 #include "user/LoopThread.h"
 #include "lib/Queue.h"
 #include "lib/Chain.h"
+#include "lib/Semaphore.h"
 #include "kernel/threads/IdleThread.h"
 
 
@@ -50,6 +51,9 @@ int main() {
 		//exceptionDemo();
 		//heap_demo();
 		//pcspk.tetris();
+		//
+		
+		//Semaphore* s = new Semaphore(2);
 
 
 		//paging
@@ -80,10 +84,12 @@ int main() {
 		kout << "p3 value: " << hex << *p3 << endl;
 		*/
 
+		/*
 		unsigned int* pt5 = (unsigned int*) allocator.alloc(8);
 		kout << "[pt5]: " << hex << pt5 << endl;
 		unsigned int* pt6 = (unsigned int*) allocator.alloc(8);
 		kout << "[pt6]: " << hex << pt6 << endl;
+		*/
 
 
 
@@ -119,7 +125,7 @@ int main() {
 		
 
 		/* Preemtive Thread Demo */
-		IdleThread* it = new IdleThread();
+		kout.clear();
 		PreemtiveThreadDemo* preemtive = new PreemtiveThreadDemo();
 		scheduler.Scheduler::ready(preemtive);
 		

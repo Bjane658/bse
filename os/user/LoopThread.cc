@@ -20,12 +20,14 @@ void LoopThread::run () {
 	
 	while(1){
     cpu.disable_int();
+		//scheduler.semaphore.p();
 		kout.setpos(0,5 + id);
-		kout << "Thread[" << id << "]tid: " << tid << " counter: " << dec << counter;
+		kout << "Thread[" << dec << id << "]tid: " << dec << tid << " counter: " << dec << counter;
 		kout.flush();
     cpu.enable_int();
+		//scheduler.semaphore.v();
 		counter += 1;
-		scheduler.yield();
+		//scheduler.yield();
 	}
    
 }

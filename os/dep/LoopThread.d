@@ -7,4 +7,5 @@ build/LoopThread.o: user/LoopThread.cc user/LoopThread.h \
  devices/CGA.h lib/OutStream.h lib/StringBuffer.h devices/Keyboard.h \
  devices/Key.h kernel/interrupts/IntDispatcher.h \
  kernel/threads/Scheduler.h kernel/threads/Dispatch.h lib/Queue.h \
- devices/VESA.h devices/LFBgraphics.h devices/fonts/Fonts.h
+ lib/Semaphore.h lib/SpinLock.h devices/VESA.h devices/LFBgraphics.h \
+ devices/fonts/Fonts.h

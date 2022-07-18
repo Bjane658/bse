@@ -15,6 +15,7 @@
 #include "kernel/threads/Dispatch.h"
 #include "kernel/threads/Thread.h"
 #include "lib/Queue.h"
+#include "lib/Semaphore.h"
 
 class Scheduler : public Dispatcher {
     
@@ -55,6 +56,12 @@ public:
 		
     // Thread umschalten; wird aus der ISR des PITs gerufen
     void preempt ();
+
+		void block();
+
+		void deblock(Thread * that);
+
+		Semaphore semaphore;
 };
 
 #endif

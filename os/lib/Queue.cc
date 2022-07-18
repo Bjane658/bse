@@ -82,4 +82,12 @@ void Queue::dump(bool verbose){
 	kout << endl;
 }
 
+bool Queue::is_empty(){
+	if(head == 0){
+		return true;
+	}
+	return false;
+
+}
+
 

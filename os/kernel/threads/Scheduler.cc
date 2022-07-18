@@ -21,6 +21,7 @@
  *****************************************************************************/
 Scheduler::Scheduler () {
     initialized = false;
+
 }
 
 /*****************************************************************************
@@ -142,5 +143,29 @@ void Scheduler::preempt () {
 	if(initialized){
 		yield();
 	}
-   
+}
+
+void Scheduler::block(){
+  cpu.disable_int ();
+
+	Thread* nextThread = (Thread*)readyQueue.dequeue();
+
+	// active Thread in Semaphor Warteschlange eintragen
+	Thread* activeThread = get_active();
+	semaphore.waitQueue.enqueue(activeThread);
+
+
+	if(nextThread == 0){
+		kout << "empty queue" << endl;
+	}else{
+		dispatch(*nextThread);
+	}
+
+  cpu.enable_int ();
+}
+
+void Scheduler::deblock(Thread * that){
+  cpu.disable_int ();
+	ready(that);
+  cpu.enable_int ();
 }

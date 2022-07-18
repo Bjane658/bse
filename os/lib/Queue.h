@@ -37,6 +37,7 @@ public:
     Chain* dequeue ();
     void remove (Chain* item);
     void dump (bool verbose);
+		bool is_empty();
  };
 
 #endif
