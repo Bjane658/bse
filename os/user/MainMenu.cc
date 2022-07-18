@@ -26,7 +26,11 @@ void MainMenu::run () {
 			kout.setpos(0,2);
 			kout << "Main Menu" << endl;
 			kout << "Choose Demo Programm" << endl;
-			kout << "Thread count: " << dec << scheduler.threadsRunning() << endl;
+			kout << "1. Grafik Demo" << endl;
+			kout << "2. Preemtives Scheduling: 3 Zähler-Threads, 1 Musik Thread und Systemzeit" << endl;
+			kout << "3. Bluescreen Null Pointer" << endl;
+			kout << "4. Bluescreen Write Protection" << endl;
+
 			scheduler.semaphore.v();
 
 			Key key = kb.key_hit();
