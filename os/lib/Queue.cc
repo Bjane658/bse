@@ -87,7 +87,20 @@ bool Queue::is_empty(){
 		return true;
 	}
 	return false;
+}
 
+int Queue::count(){
+	int counter = 0;
+	if(is_empty()){
+		return counter;
+	}
+	counter += 1;
+	Chain* next = head->next;
+	while(next != 0){
+		counter += 1;
+		next = next->next;
+	}
+	return counter;
 }
 
 

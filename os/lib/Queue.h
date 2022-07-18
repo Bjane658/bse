@@ -38,6 +38,7 @@ public:
     void remove (Chain* item);
     void dump (bool verbose);
 		bool is_empty();
+		int count();
  };
 
 #endif

@@ -124,7 +124,6 @@ inline void PCSPK::delay (int time) {
  *                  https://gist.github.com/XeeX/6220067                     *
  *****************************************************************************/
 void PCSPK::tetris () {
-	kout << "Start playing tetris" << endl;
     play(658, 125);
     play(1320, 500);
     play(990, 250);

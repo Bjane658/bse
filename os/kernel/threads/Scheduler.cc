@@ -104,6 +104,31 @@ void Scheduler::kill (Thread * that) {
     cpu.enable_int ();
 }
 
+void Scheduler::killAll () {
+    // Thread-Wechsel durch PIT verhindern
+    cpu.disable_int ();
+
+		Thread* active = get_active();
+
+		kout.setpos(0,20);
+		kout << "queue count" << dec << readyQueue.count() << endl;
+		while(readyQueue.count() >= 2){
+			Thread* next = (Thread*) readyQueue.dequeue();
+			if(next == 0){
+				break;
+			}
+			kout << "thread " << hex << next << " tid: " << dec << next->tid << endl;
+			if(next->tid == 1){
+				ready(next);
+			}
+		}
+    
+    // Thread-Wechsel durch PIT jetzt wieder erlauben
+    cpu.enable_int ();
+}
+
+
+
 
 /*****************************************************************************
  * Methode:         Scheduler::yield                                         *
@@ -168,4 +193,13 @@ void Scheduler::deblock(Thread * that){
   cpu.disable_int ();
 	ready(that);
   cpu.enable_int ();
+}
+
+int Scheduler::threadsRunning(){
+	int threadCount = 0;
+	if(get_active() != 0){
+		threadCount += 1;
+	}
+
+	return threadCount + readyQueue.count();
 }

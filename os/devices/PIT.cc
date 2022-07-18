@@ -71,6 +71,7 @@ void PIT::printClock(){
 	int prevY = 0;
 	kout.getpos(prevX, prevY);
 
+	kout.flush();
 	kout.setpos(50,0);
 	switch(timer_char){
 		case 0:
@@ -105,7 +106,9 @@ void PIT::printClock(){
 void PIT::trigger () {
 		if(systime % 100 == 0){
 			//kout.clear();
+    	cpu.disable_int();
 			printClock();
+    	cpu.enable_int();
 		}
     
     // alle 10ms, Systemzeit weitersetzen

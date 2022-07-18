@@ -51,6 +51,9 @@ public:
     // Thread mit 'Gewalt' terminieren
     void kill (Thread * that);
 
+		// Thread alle Threads außer den aufrufenden und denn Idle Thread terminieren
+		void killAll();
+
     // CPU freiwillig abgeben und Auswahl des naechsten Threads
     void yield ();
 		
@@ -60,6 +63,8 @@ public:
 		void block();
 
 		void deblock(Thread * that);
+
+		int threadsRunning();
 
 		Semaphore semaphore;
 };
