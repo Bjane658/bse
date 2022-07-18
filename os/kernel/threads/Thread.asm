@@ -66,16 +66,19 @@ Thread_switch:
 	mov [eax + ecx_offset], ecx
 	mov [eax + edx_offset], edx
 ; Sichern der flags
-;	pushf
-;	pop ecx
-;	mov [eax + efl_offset], ecx
+	pushf
+	pop ecx
+	mov [eax + efl_offset], ecx
+
+	mov ecx, [esp+8]	;reg_then
+	
 
 
 ;	Den State von reg_then uebertragen
 ; Flags uebertragen
-;	mov eax, [ecx + efl_offset]
-;	push eax
-;	popf
+	mov eax, [ecx + efl_offset]
+	push eax
+	popf
 
 	mov ebx, [ecx + ebx_offset]
 	mov esi, [ecx + esi_offset]
