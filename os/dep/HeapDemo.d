@@ -6,5 +6,6 @@ build/HeapDemo.o: user/HeapDemo.cc kernel/Globals.h kernel/CPU.h \
  lib/StringBuffer.h devices/Keyboard.h devices/Key.h \
  kernel/interrupts/IntDispatcher.h kernel/threads/Scheduler.h \
  kernel/threads/Dispatch.h kernel/threads/Thread.h \
- kernel/threads/ThreadState.h lib/Chain.h lib/Queue.h devices/VESA.h \
- devices/LFBgraphics.h devices/fonts/Fonts.h user/HeapDemo.h user/MyObj.h
+ kernel/threads/ThreadState.h lib/Chain.h lib/Queue.h lib/Semaphore.h \
+ lib/SpinLock.h devices/VESA.h devices/LFBgraphics.h \
+ devices/fonts/Fonts.h user/HeapDemo.h user/MyObj.h

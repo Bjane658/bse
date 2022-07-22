@@ -16,15 +16,20 @@
 
 // Hilfsfunktion: Auf Return-Taste warten
 void waitForReturn() {
-
-    /* hier muss Code eingefuegt werden */
-
+    while(1){
+        Key key = kb.key_hit();
+        if(key.valid()){
+					if((int) key.ascii() == 10){
+						break;
+					}
+        }
+    }
 }
 
 
 void heap_demo() {
 		kout.clear();
-		kout.setpos(0,0);
+		kout.setpos(0,1);
     kout << "Demo 1/4: 2 Objekte dynamisch allozieren" << endl;
     kout << "========================================" << endl;
 
@@ -47,14 +52,7 @@ void heap_demo() {
 		kout << "total_mem" << dec << total_mem << endl;
 		kout << "Weiter mit <ENTER>" << endl;
 
-    while(1){
-        Key key = kb.key_hit();
-        if(key.valid()){
-					if((int) key.ascii() == 10){
-						break;
-					}
-        }
-    }
+		waitForReturn();
 
 		kout.clear();
 		kout.setpos(0,0);
@@ -72,5 +70,8 @@ void heap_demo() {
 
     allocator.dump_free_memory();
 		kout << "Weiter mit <ENTER>" << endl;
+
+		waitForReturn();
+
 }
 

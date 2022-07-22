@@ -363,14 +363,8 @@ void Keyboard::plugin(){
 }
 
 void Keyboard::trigger(){
-    //kout << "Keyboar trigger" << endl;
     Key key = key_hit();
     if(key.valid()){
-				if((int) key.ascii() == 0){
-					kout.clear();
-  				pic.forbid(pic.keyboard);
-    			scheduler.exit();
-				}
        kout << key.ascii();
 			 kout.flush();
      }

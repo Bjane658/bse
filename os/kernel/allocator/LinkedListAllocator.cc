@@ -149,6 +149,10 @@ struct free_and_prev_free_block LinkedListAllocator::findFreeBlocksInbetween(voi
 };
 
 void LinkedListAllocator::consolidateFreeBlocks(struct free_block* prevFreeBlock, struct free_block* freeBlock){
+		if(prevFreeBlock == 0){
+			return;
+		}
+
     void* prevFreeBlockNextBlockAddress = (void* )prevFreeBlock + prevFreeBlock->size;
     void* freeBlockNextBlockAddress = (void*) freeBlock + freeBlock->size;
 
