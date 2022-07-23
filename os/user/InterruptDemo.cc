@@ -7,9 +7,12 @@ void InterruptDemo::run () {
 	kb.plugin();
 	cpu.enable_int();
 
-	kout.setpos(0,0);
+	scheduler.semaphore.p();
+	kout.setpos(0,1);
 	kout << "Keyboard interrupt demo" << endl;
+	scheduler.semaphore.v();
 	
+	/*
 	while(1){
 			Key key = kb.key_hit();
 			if(key.valid()){
@@ -21,6 +24,7 @@ void InterruptDemo::run () {
 	kout.clear();
   pic.forbid(pic.keyboard);
 	scheduler.exit();
+	*/
 	while(1){
 	}
    

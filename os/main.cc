@@ -101,6 +101,9 @@ int main() {
 		scheduler.Scheduler::ready(preemtive);
 		*/
 
+		pit.plugin();
+    // Interrupts erlauben (Tastatur)
+    cpu.enable_int();
 		/* Main Menu */
 		MainMenu* mainMenu = new MainMenu();
 		scheduler.Scheduler::ready(mainMenu);
@@ -115,13 +118,10 @@ int main() {
 		//scheduler.Scheduler::schedule();
 
 
-		pit.plugin();
     
     // Tastatur-Unterbrechungsroutine 'einstoepseln'
 		// kb.plugin();
 
-    // Interrupts erlauben (Tastatur)
-    cpu.enable_int();
 
 
 		//Anwendung im Scheduler anmelden

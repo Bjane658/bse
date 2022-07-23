@@ -28,6 +28,9 @@ void waitForReturn() {
 
 
 void heap_demo() {
+	/*
+	 *  DEMO PAGE 1
+	 */
 		kout.clear();
 		kout.setpos(0,1);
     kout << "Demo 1/4: 2 Objekte dynamisch allozieren" << endl;
@@ -54,6 +57,9 @@ void heap_demo() {
 
 		waitForReturn();
 
+	/*
+	 *  DEMO PAGE 2
+	 */
 		kout.clear();
 		kout.setpos(0,0);
     kout << "Demo 2/4: 2 Objekte wieder freigeben" << endl;
@@ -70,6 +76,43 @@ void heap_demo() {
 
     allocator.dump_free_memory();
 		kout << "Weiter mit <ENTER>" << endl;
+
+		waitForReturn();
+	/*
+	 *  DEMO PAGE 3
+	 */
+		kout.clear();
+		kout.setpos(0,0);
+    kout << "Demo 3/4: Array anlegen und ausgeben" << endl;
+    kout << "========================================" << endl;
+    allocator.dump_free_memory();
+
+		MyObj* arr = new MyObj[3];
+		arr[0].myNum = 1;
+		arr[0].myChar = 'a';
+
+		kout << "1. Objekt im Array" << endl;
+		kout << "arr[0]:" << "myNum: " << dec << arr[0].myNum << " myChar: " << arr[0].myChar << endl;
+    allocator.dump_free_memory();
+
+		kout << "Weiter mit <ENTER>" << endl;
+
+		waitForReturn();
+
+	/*
+	 *  DEMO PAGE 4
+	 */
+		kout.clear();
+		kout.setpos(0,0);
+    kout << "Demo 4/4: Array wieder freigeben" << endl;
+    kout << "========================================" << endl;
+    allocator.dump_free_memory();
+
+		delete[] arr;
+    allocator.dump_free_memory();
+
+		kout << "ENDE DER DEMO" << endl;
+		kout << "Beenden mit <ENTER>" << endl;
 
 		waitForReturn();
 

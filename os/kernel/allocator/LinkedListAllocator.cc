@@ -185,7 +185,8 @@ void LinkedListAllocator::free(void *ptr) {
     if(freeBlocksAround.prev == 0){
         newFreeBlock->next = freeBlocksAround.next;
         free_start->next = newFreeBlock;
-        consolidateFreeBlocks(freeBlocksAround.prev, newFreeBlock);
+        //consolidateFreeBlocks(freeBlocksAround.prev, newFreeBlock);
+        consolidateFreeBlocks(newFreeBlock, newFreeBlock->next);
         return;
     }
 

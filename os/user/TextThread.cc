@@ -19,17 +19,20 @@
  *****************************************************************************/
 void TextThread::run () {
   //cpu.disable_int();
-	textDemo();
-	kout << "Press <ESC> to exit" << endl;
-	while(1){
-			Key key = kb.key_hit();
-			if(key.valid()){
-				if((int) key.ascii() == 0){
-    			//cpu.enable_int();
-					break;
+		textDemo();
+		kout << "Press <ESC> to exit" << endl;
+		while(1){
+				Key key = kb.key_hit();
+				if(key.valid()){
+					if((int) key.ascii() == 0){
+						//cpu.enable_int();
+						break;
+					}
 				}
-			}
-	}
-	scheduler.exit();
+		}
+		scheduler.exit();
+		while(1){
+			kout << "After exit" << endl;;
+		}
    
 }

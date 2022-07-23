@@ -365,8 +365,14 @@ void Keyboard::plugin(){
 void Keyboard::trigger(){
     Key key = key_hit();
     if(key.valid()){
-       kout << key.ascii();
-			 kout.flush();
+			if((int) key.ascii() == 0){
+					kout.clear();
+  				pic.forbid(pic.keyboard);
+					scheduler.exit();
+				}else{
+       		kout << key.ascii();
+			 		kout.flush();
+				}
      }
     
 }
