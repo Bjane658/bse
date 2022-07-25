@@ -26,13 +26,12 @@ void PreemtiveThreadDemo::run () {
 	LoopThread* l0 = new LoopThread(0);
 	LoopThread* l1 = new LoopThread(1);
 	LoopThread* l2 = new LoopThread(2);
-	TetrisThread* tetris = new TetrisThread(3);
+	TetrisThread* tetris = new TetrisThread();
 
 	scheduler.Scheduler::ready(l0);
 	scheduler.Scheduler::ready(l1);
 	scheduler.Scheduler::ready(l2);
 	scheduler.Scheduler::ready(tetris);
-	//scheduler.Scheduler::readyQueue.dump(false);
 
 	scheduler.exit();
 }

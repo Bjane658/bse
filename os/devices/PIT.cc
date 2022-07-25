@@ -45,23 +45,23 @@ void PIT::dumpStatus(){
  *                  Methode 'trigger' aufgerufen.                            *
  *****************************************************************************/
 void PIT::plugin () {
-		if(timer_interval > 0){
-			int counter = (int) timer_interval/0.83809511038551;
-			int low = 0x00FF & counter;
-			int high = counter >> 8;
-			
-			// set ch0 mode 3
-			PITCMD.outb(0b00110110);
-			PITCH0.outb(low);
-			PITCH0.outb(high);
-		}
+	if(timer_interval > 0){
+		int counter = (int) timer_interval/0.83809511038551;
+		int low = 0x00FF & counter;
+		int high = counter >> 8;
+		
+		// set ch0 mode 3
+		PITCMD.outb(0b00110110);
+		PITCH0.outb(low);
+		PITCH0.outb(high);
+	}
 
 
-    // in IntDispatcher registrieren
-    intdis.assign(intdis.time, *this);
+	// in IntDispatcher registrieren
+	intdis.assign(intdis.time, *this);
 
-    // in PIC Interrupts des Timer zulassen
-    pic.allow(pic.timer);
+	// in PIC Interrupts des Timer zulassen
+	pic.allow(pic.timer);
 
 
 }

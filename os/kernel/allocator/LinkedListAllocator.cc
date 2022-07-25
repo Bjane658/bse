@@ -41,12 +41,6 @@ void LinkedListAllocator::init() {
 		kout << "first_free_block address: " << hex << &first_free_block << endl;
     free_start = &free_start_value;
     
-    /*
-    kout << "free start: " << hex << free_start << "    size: " << dec << free_start->size << " next free Address: " << hex << free_start->next << endl;
-    kout << "free_block size: " << dec << sizeof (struct free_block) << endl;
-
-    dump_free_memory();
-    */
 }
 
 
@@ -59,12 +53,13 @@ void LinkedListAllocator::dump_free_memory() {
     struct free_block* currentFreeBlock = free_start->next;
     unsigned int blocks = 0;
 
-    kout << "======== free memory dump ======" << "Anker next Address: " << hex << free_start->next << endl;
+    //kout << "======== free memory dump ======" << "Anker next Address: " << hex << free_start->next << endl;
+    kout << "======== free memory dump ======" << endl;
     while(true)
     {
         blocks++;
-        kout << "free Block" << dec << blocks << "  From: " << hex << currentFreeBlock << " To: " << hex << (void *) currentFreeBlock + currentFreeBlock->size << endl;
-        kout << "  size: " << dec << currentFreeBlock->size << "   next: " << hex << currentFreeBlock->next << endl;
+        kout << "|| free Block" << dec << blocks << "  From: " << hex << currentFreeBlock << " To: " << hex << (void *) currentFreeBlock + currentFreeBlock->size << endl;
+        kout << "|| size: " << dec << currentFreeBlock->size << "   next: " << hex << currentFreeBlock->next << endl;
         if(currentFreeBlock->next == 0) break;
         currentFreeBlock = currentFreeBlock->next;
     };
@@ -99,22 +94,13 @@ struct free_and_prev_free_block LinkedListAllocator::findFreeFittingBlock(unsign
 void * LinkedListAllocator::alloc(unsigned int req_size) {
     struct free_and_prev_free_block freeAndPrevFreeBlock = findFreeFittingBlock(req_size);
 
-    //kout << "======== alloc ======" << endl;
-    //kout << "first free fitting block address: " << hex << freeAndPrevFreeBlock.next << endl;
-    //kout << "prev free fitting block address: " << hex << freeAndPrevFreeBlock.prev << endl;
 
     struct free_block* newFreeBlock = (free_block*)(((void *) freeAndPrevFreeBlock.next) + HEAP_BLOCK_SIZE_INFO + req_size);
-    //kout << " new free block addresse: " << hex << newFreeBlock << endl;
     newFreeBlock->size = freeAndPrevFreeBlock.next->size - (HEAP_BLOCK_SIZE_INFO + req_size);
     newFreeBlock->next = freeAndPrevFreeBlock.next->next;
 
     unsigned int * allocatedStart = (unsigned int *) freeAndPrevFreeBlock.next;
     *allocatedStart = req_size;
-
-    //kout << "allocatedStart Address: " << hex << allocatedStart << endl;
-    //kout << "allocatedStart size: " << dec << *allocatedStart << endl;
-    //kout << "allocatedStart return Address: " << hex << (void *) allocatedStart + HEAP_BLOCK_SIZE_INFO << endl;
-    
 
     if(freeAndPrevFreeBlock.prev == 0 || freeAndPrevFreeBlock.prev == free_start->next){
 				free_start_value = {0, newFreeBlock};
@@ -123,10 +109,6 @@ void * LinkedListAllocator::alloc(unsigned int req_size) {
     }else{
         freeAndPrevFreeBlock.prev->next = newFreeBlock;
     }
-
-    
-
-    //kout << "======== ====== ======" << endl;
   
     return (void *) allocatedStart + HEAP_BLOCK_SIZE_INFO;
 }
@@ -137,7 +119,6 @@ struct free_and_prev_free_block LinkedListAllocator::findFreeBlocksInbetween(voi
 
     while(((prevFreeBlock < ptr) && (ptr < currentFreeBlock)) != 1)
     {
-        //kout << "inside while" << endl;
         if(currentFreeBlock->next == 0){
             currentFreeBlock = NULL;
             break;
@@ -185,7 +166,6 @@ void LinkedListAllocator::free(void *ptr) {
     if(freeBlocksAround.prev == 0){
         newFreeBlock->next = freeBlocksAround.next;
         free_start->next = newFreeBlock;
-        //consolidateFreeBlocks(freeBlocksAround.prev, newFreeBlock);
         consolidateFreeBlocks(newFreeBlock, newFreeBlock->next);
         return;
     }

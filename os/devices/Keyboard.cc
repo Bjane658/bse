@@ -332,9 +332,6 @@ void Keyboard::reboot () {
  *                  und 31 (sehr langsam).                                   *
  *****************************************************************************/
 void Keyboard::set_repeat_rate (int speed, int delay) {
-
-    /* Hier muss Code eingefuegt werden. */
-
 }
 
 
@@ -348,9 +345,6 @@ void Keyboard::set_repeat_rate (int speed, int delay) {
  *      on:         0 = aus, 1 = an                                          *
  *****************************************************************************/
 void Keyboard::set_led (char led, bool on) {
-
-    /* Hier muss Code eingefuegt werden. */
-
 }
 
 void Keyboard::plugin(){
@@ -365,14 +359,8 @@ void Keyboard::plugin(){
 void Keyboard::trigger(){
     Key key = key_hit();
     if(key.valid()){
-			if((int) key.ascii() == 0){
-					kout.clear();
-  				pic.forbid(pic.keyboard);
-					scheduler.exit();
-				}else{
-       		kout << key.ascii();
-			 		kout.flush();
-				}
+	kout << key.ascii();
+	kout.flush();
      }
     
 }

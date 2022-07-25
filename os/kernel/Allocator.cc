@@ -53,7 +53,6 @@ Allocator::Allocator() {
 
    heap_start = HEAP_START;
    heap_end   = HEAP_START + HEAP_SIZE;
-   //heap_end   = HEAP_START + 10;
    heap_size  = HEAP_SIZE;
 
    

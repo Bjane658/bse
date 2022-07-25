@@ -39,8 +39,6 @@ static IOport IMR2 (0xa1);    // interrupt mask register von PIC 2
  *      irq:        IRQ der erlaubt werden soll                              *
  *****************************************************************************/
 void PIC::allow (int irq) {
-    //IMR1.outb(0b11111101);
-    //IMR2.outb(0b11111111);
 
     if(irq > 7 || irq < 0){
         return;
@@ -72,11 +70,9 @@ void PIC::forbid (int irq) {
     unsigned int imr1 = IMR1.inb();
     unsigned int imr2 = IMR2.inb();
     unsigned int imr = imr2 << 8 | imr1;
-    //kout << "IMR: " << bin << imr << endl;
 
     unsigned int forbitBit = 1 << irq;
     unsigned int result = imr | forbitBit;
-    //kout << "IMR: " << bin << result << endl;
 
     IMR1.outb(result);
 }
@@ -104,18 +100,6 @@ bool PIC::status (int irq) {
     
     kout << "PIC Status for irq: " << dec << irq << "=> " << bin << result <<  endl;
     kout << "IMR: " << bin << imr << endl;
-
-    //IMR1.outb(0b11111101);
-    //IMR2.outb(0b11111111);
-
-    //imr1 = IMR1.inb();
-    //imr2 = IMR2.inb();
-    //imr = imr2 << 8 | imr1;
-
-    ///kout << "imr1: " << bin << imr1 << endl;
-    //kout << "imr2: " << bin << imr2 << endl;
-
-    //kout << "IMR: " << bin << imr << endl;
 
     return result;
 }

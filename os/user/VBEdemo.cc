@@ -82,12 +82,9 @@ void VBEdemo::drawBitmap () {
  * Beschreibung:    Fonts ausgeben.                                          *
  *****************************************************************************/
 void VBEdemo::drawFonts () {
-		char* some = "some";
+	char* some = "some text in red";
 
-		vesa.drawString(std_font_8x16, 250,250, 0xff0000, some, 5);
-
-   /* Hier muss Code eingefuegt werden */
-   
+	vesa.drawString(std_font_8x16, 350,250, 0xff0000, some, 17);
 }
 
 
@@ -100,29 +97,16 @@ void VBEdemo::drawFonts () {
  *****************************************************************************/
 void VBEdemo::run () {
 
-    // In den Grafikmodus schalten (32-Bit Farbtiefe)
-    vesa.initGraphicMode(MODE_640_480_24BITS);
-    vesa.setDrawingBuff(BUFFER_VISIBLE);
+    	// In den Grafikmodus schalten (32-Bit Farbtiefe)
+    	vesa.initGraphicMode(MODE_640_480_24BITS);
+    	vesa.setDrawingBuff(BUFFER_VISIBLE);
 
-    drawColors();
-		vesa.drawRectangle(0,0,200,52);
-		vesa.drawCircle(250,250,50);
-		drawBitmap();
-		drawFonts();
-
-    while(1){
-        Key key = kb.key_hit();
-        if(key.valid()){
-					if((int) key.ascii() == 0){
-						break;
-					}
-        }
-    }
-    vesa.initTextMode();
-		kout.clear();
-
+    	drawColors();
+	vesa.drawRectangle(50,100,200,52);
+	vesa.drawCircle(250,250,50);
+	drawBitmap();
+	drawFonts();
     
+	while(1){}
 
-    // selbst terminieren
-    scheduler.exit ();
 }

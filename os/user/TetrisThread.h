@@ -1,12 +1,4 @@
 
-/*****************************************************************************
- *                                                                           *
- *                        Tetristhread				                               *
- *                                                                           *
- *---------------------------------------------------------------------------*
- * Beschreibung:    Demo eines Threads. Schleife die Zahlen ausgibt.         *
- *****************************************************************************/
-
 #ifndef __tetristhread_include__
 #define __tetristhread_include__
 
@@ -20,8 +12,7 @@ private:
     TetrisThread (const TetrisThread &copy); // Verhindere Kopieren
     
 public:
-    // Gibt der Loop einen Stack und eine Id.
-    TetrisThread (int i) : Thread () { id = i; }
+    TetrisThread () : Thread () {}
 
     // spielt Tetris
     void run ();
