@@ -262,10 +262,27 @@ void bs_dump (unsigned int exceptionNr) {
 		int error_nr = *(sptr + 8);
 		
 		if (exceptionNr==14) {
+			bs_print_string("Caused by: \0");
 
-           /*
-               hier muss Code eingefuegt werden
-           */
+			if(error_nr % 2 == 0){
+					bs_print_string("Non present page\0");
+			}else if(error_nr == 1){
+					bs_print_string("read access\0");
+			}else if(error_nr == 3){
+					bs_print_string("write access\0");
+			}else if(error_nr == 5){
+					bs_print_string("user rights\0");
+			}else if(error_nr == 7){
+					bs_print_string("reserved bit present\0");
+			}else if(error_nr == 9){
+					bs_print_string("instruction fetch\0");
+			}else if(error_nr == 11){
+					bs_print_string("protection key violation\0");
+			}else if(error_nr == 13){
+					bs_print_string("shadow stack access\0");
+			}
+      bs_lf();
+
         
  		}
 		else {
