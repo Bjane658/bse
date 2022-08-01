@@ -121,7 +121,7 @@ void pg_write_protect_page(unsigned int *p_page) {
     p_page += idx;
     *p_page = ( *p_page & ~PAGE_WRITEABLE);
 
-    invalidate_tlb_entry(p_page); // in startup.asm
+    //invalidate_tlb_entry(p_page); // in startup.asm
 }
 
 

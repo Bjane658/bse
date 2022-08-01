@@ -72,7 +72,7 @@ struct free_and_prev_free_block LinkedListAllocator::findFreeFittingBlock(unsign
     struct free_block* currentFreeBlock = free_start->next;
     struct free_block* prevFreeBlock = NULL;
 
-    while(currentFreeBlock->size < req_size + 32)
+    while(currentFreeBlock->size < req_size + HEAP_BLOCK_SIZE_INFO)
     {
         if(currentFreeBlock->next == 0){
             currentFreeBlock = NULL;

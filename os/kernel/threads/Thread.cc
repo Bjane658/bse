@@ -117,8 +117,9 @@ Thread::Thread () {
 		nextThreadId = nextThreadId + 1;
 
 		unsigned int* stack = new unsigned int[1024];
-		
-    Thread_init(&regs, &stack[1024], kickoff, this);
+		if(stack != 0){
+    	Thread_init(&regs, &stack[1024], kickoff, this);
+		}
  }
 
 
