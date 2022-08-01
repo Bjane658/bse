@@ -11,29 +11,26 @@
 #include "lib/Semaphore.h"
 #include "kernel/Globals.h"
 
+
 void Semaphore::p(){
 	cpu.disable_int();
-	if(counter > 0){
-		counter -= 1;
-		if(counter == 0){
-			lock.acquire();
-			cpu.enable_int();
-		}
-	}else{
+	counter -= 1;
+	if(counter < 0){
 		scheduler.block();
-		lock.acquire();
-		cpu.enable_int();
 	}
+	lock.acquire();
+	cpu.disable_int();
 }
 
 void Semaphore::v(){
   cpu.disable_int();
-	lock.release();
 	counter += 1;
-	if(!waitQueue.is_empty()){
-		Thread* nextThread = (Thread*)waitQueue.dequeue();
-		scheduler.deblock(nextThread);
+	if(counter <= 0){
+		if(!waitQueue.is_empty()){
+			Thread* nextThread = (Thread*)waitQueue.dequeue();
+			scheduler.deblock(nextThread);
+		}
 	}
+	lock.release();
   cpu.enable_int();
 }
-
