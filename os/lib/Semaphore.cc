@@ -18,8 +18,8 @@ void Semaphore::p(){
 	if(counter < 0){
 		scheduler.block();
 	}
+	cpu.enable_int();
 	lock.acquire();
-	cpu.disable_int();
 }
 
 void Semaphore::v(){
