@@ -122,6 +122,7 @@ void LFBgraphics::drawRectangle (	unsigned int x,
    
 }
 
+// Bresenham Algorithmus
 void LFBgraphics::drawCircle (	unsigned int x0,
 																unsigned int y0,
 																unsigned int radius

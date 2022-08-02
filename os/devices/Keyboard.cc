@@ -359,8 +359,8 @@ void Keyboard::plugin(){
 void Keyboard::trigger(){
     Key key = key_hit();
     if(key.valid()){
-	kout << key.ascii();
-	kout.flush();
+			kout << key.ascii();
+			kout.flush();
      }
     
 }

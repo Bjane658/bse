@@ -17,7 +17,7 @@
 
 int main() {
 	// Speicherverwaltung initialisieren
-    	allocator.init();
+  allocator.init();
 
 	// Paging initialisieren
 	pg_init();
